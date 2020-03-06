@@ -84,10 +84,10 @@ public class CSVReader {
 					counter++;
 				}
 				
-				System.out.print(String.format("%-4s", counter));
-				System.out.println(String.format("%-20s%-12s%-12s%-12s%-12s", list.get(0), list.get(1), list.get(2),
-						list.get(3), list.get(4)));
-				counter++;
+//				System.out.print(String.format("%-4s", counter));
+//				System.out.println(String.format("%-20s%-12s%-12s%-12s%-12s", list.get(0), list.get(1), list.get(2),
+//						list.get(3), list.get(4)));
+//				counter++;
 
 			}
 		} catch (IOException e) {

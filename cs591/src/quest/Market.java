@@ -15,12 +15,11 @@ public class Market {
 	 */
 	public void showcase() {
 		int counter = 0;
-		for (List<String> list : CSVReader.items) {
+		for (List<String> list : CSVReader.marketItems) {
 			System.out.print(String.format("%-4s", counter));
 			System.out.println(String.format("%-20s%-12s%-12s%-12s%-12s", list.get(0), list.get(1), list.get(2),
 					list.get(3), list.get(4), list.get(5)));
 			counter++;
 		}
-		
 	}
 }
