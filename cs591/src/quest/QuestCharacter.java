@@ -31,4 +31,6 @@ public abstract class QuestCharacter {
 	public String toString() {
 		return name;
 	}
+
+	protected abstract void sellFromStorage();
 }

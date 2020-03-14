@@ -66,8 +66,13 @@ public class Cell {
 	 * Remove given piece from this Cell
 	 */
 	public void removePiece(Piece p) {
-		if (this.pieces.contains(p)) {
-			this.pieces.remove(p);
+		if (pieceExists(p)) {
+			for(Piece piece1 : pieces) {
+				if(piece1.getPieceFigure() == p.getPieceFigure()) {
+					this.pieces.remove(piece1);
+					return;
+				}
+			}
 		}
 	}
 	/*
@@ -113,9 +118,9 @@ public class Cell {
 	/*
 	 * Check if given piece exists in this Cell
 	 */
-	public boolean pieceExists(Piece piece) {
+	public boolean pieceExists(Piece piece) {		
 		for(Piece piece1 : pieces) {
-			if(piece1.equals(piece)) {
+			if(piece1.getPieceFigure() == piece.getPieceFigure()) {
 				return true;
 			}
 		}

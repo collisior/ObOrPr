@@ -126,11 +126,9 @@ public abstract class Board {
 	public boolean boardPositionExists(int row, int col) {
 		
 		if ((row < 0) || (row > (rows - 1))) {
-			System.out.println("   row < 0) || (row > (rows - 1)");
 			return false;
 		}
 		if ((col < 0) || (col > (cols - 1))) {
-			System.out.println("   (col < 0) || (col > (cols - 1)");
 			return false;
 		}
 		return true;

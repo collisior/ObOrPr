@@ -11,11 +11,13 @@ public class InputHandler {
 	public static int getInteger() {
 		boolean inputIsValid = false;
 		int num = 0;
+		String s = "";
+		
 		while (inputIsValid == false) {
 			Scanner scanner = new Scanner(System.in);
 			System.out.print("Enter here (integer): ");
 			try {
-				String s = scanner.nextLine().strip();
+				s = scanner.next();
 				num = Integer.parseInt(s);
 				inputIsValid = true;
 			} catch (InputMismatchException e) {
@@ -130,12 +132,11 @@ public class InputHandler {
 
 		int[] nn = new int[] { -1, -1 };
 		boolean playerInputIsValid = false;
-
+		Scanner scanner = new Scanner(System.in).useDelimiter("[,\\s+]");
 		while (playerInputIsValid == false) {
-			Scanner scanner = new Scanner(System.in).useDelimiter("[,\\s+]");
+			
 			System.out.print("Enter two integers (separated by comma or whitespace): ");
 			try {
-
 				nn[0] = scanner.nextInt();
 				nn[1] = scanner.nextInt();
 				playerInputIsValid = true;
@@ -144,9 +145,43 @@ public class InputHandler {
 				System.out.println("Invalid input. Try again. ");
 			}
 		}
+		scanner.close();
 		return nn;
 	}
-
+	/*
+	 * Returns Character input if exists in given character list
+	 */
+	public static String getQuestOneCharOneInt(char[] list, int min, int max) {
+		boolean inputIsValid = false;
+		int num = 0;
+		String result="";
+		String input = "";
+		while (inputIsValid == false) {
+			input = getString();
+			input = input.replace(" ", "");
+			char[] clist = input.toCharArray(); 
+			if(input.length() == 2) {
+				if (Character.isLetter(clist[0])) {
+					for (char c : list) {
+						if((c == clist[0]) && Character.isDigit(input.charAt(1))) {
+							num = Integer.parseInt(""+clist[1]);					
+							if ((num >= min) && (num <= max)) {
+								result = c +""+num;
+								inputIsValid = true;
+							} else {
+								System.out.println("Invalid input. Number is out of range.");
+							}
+						} 
+					}
+				} else {
+					System.out.println("Invalid input, must be one letter followed by one integer. Try again. ");
+				}
+				
+				
+			}
+		}
+		return result;
+	}
 	/*
 	 * Retrieve and return string input from user
 	 */
@@ -154,7 +189,8 @@ public class InputHandler {
 		String input = "";
 		Scanner scanner = new Scanner(System.in);
 		System.out.print("Enter here: ");
-		input = scanner.next();
+		input = scanner.nextLine();
+		System.out.println(" input: "+input);
 		return input;
 	}
 }

@@ -30,5 +30,10 @@ public class Monster extends QuestCharacter {
 	public void setDodgeChance(double dodgeChance) {
 		this.dodgeChance = dodgeChance;
 	}
+
+	@Override
+	protected void sellFromStorage() {
+		// TODO: nothing
+	}
 	
 }

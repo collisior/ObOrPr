@@ -16,28 +16,28 @@ public abstract class Game {
 	protected ArrayList<Integer> listPlayers = new ArrayList<Integer>(); // List of all players IDs playing current game
 	@SuppressWarnings("rawtypes")
 	protected Deque queue; //queue of current game. Call setGamersQueue()to activate this Deque
-	private int availableId = 1;
+	private static int availableId = 1;
 
 	/*
 	 * Return available id.
 	 */
-	public int getAvailableId() {
-		return this.availableId;
+	public static int getAvailableId() {
+		return Game.availableId;
 	}
 
 	/*
 	 * Update available id.
 	 */
 	public void updateAvailableId() {
-		this.availableId++;
+		Game.availableId++;
 	}
 
 	/*
 	 * Create new Player and return this Player
 	 */
 	public Player addPlayer() {
-		Player p = new Player(this.availableId);
-		mapPlayers.put(this.availableId, p);
+		Player p = new Player(availableId);
+		mapPlayers.put(availableId, p);
 		updateAvailableId();
 		listPlayers.add(p.getId());
 		return p;

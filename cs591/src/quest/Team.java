@@ -14,6 +14,8 @@ public class Team {
 	private int turnIndex = 0; //this team's player turn 
 	private char figure; // e.g. can be used in TicTacToe, Checkers
 	private Piece piece;
+	public int current_row;
+	public int current_col;
 	/*
 	 * Constructor to initialize team.
 	 */
@@ -48,13 +50,13 @@ public class Team {
 	/*
 	 * Set this team piece (figure).
 	 */
-	public Piece getTeamPiece() {
+	public Piece getPiece() {
 		return this.piece;
 	}
 	/*
 	 * Set all this team piece
 	 */
-	public void setTeamPiece(Piece piece) {
+	public void setPiece(Piece piece) {
 		this.piece = piece;
 	}
 	/*
@@ -62,7 +64,7 @@ public class Team {
 	 */
 	public void setAllPlayersPiece() {
 		for (Player p : team) {
-			p.setPlayerPiece(this.piece);
+			p.setPlayerPiece(this.getPiece());
 		}
 	}
 	/*
@@ -164,5 +166,6 @@ public class Team {
 	public String toString() {
 		return "Team " + id + ": " + getName();
 	}
+
 
 }
