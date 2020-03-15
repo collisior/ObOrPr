@@ -1,7 +1,8 @@
 package quest;
 
 public class Spell extends Ammunition {
-	private int damage, mana_cost;
+	private double damage, mana_cost;
+	public double skillDeterioration = 0.1; //reduce enemy's skills by 10%
 	
 	public Spell(String name, int cost, int required_level, int damage, int mana_cost) {
 		super(name, cost, required_level);
@@ -9,20 +10,23 @@ public class Spell extends Ammunition {
 		setManaCost(mana_cost);
 	}
 
-	public int getDamage() {
+	public double getDamage() {
 		return damage;
 	}
 
-	public void setDamage(int damage) {
+	public void setDamage(double damage) {
 		this.damage = damage;
 	}
 
-	public int getManaCost() {
+	public double getManaCost() {
 		return mana_cost;
 	}
 
-	public void setManaCost(int mana_cost) {
+	public void setManaCost(double mana_cost) {
 		this.mana_cost = mana_cost;
+	}
+	@Override
+	protected void applyExtraDamage(Monster monster) {
 	}
 
 	

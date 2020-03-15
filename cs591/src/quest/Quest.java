@@ -31,6 +31,7 @@ public class Quest extends Game {
 			board.getBoard()[0][0].placePiece(team.getPiece());
 		}
 	}
+	
 	public void tmpSetupTeams() {
 		Team team = new Team(1);
 		Player player = addPlayer();
@@ -53,16 +54,18 @@ public class Quest extends Game {
 		while (!gameStop) {
 			Team team = (Team) getNextInQueue(mapTeams);
 			char cellType = teamMove(team);
-			System.out.println("CURRENT row,col: " +team.current_row + " "+ team.current_col + "" );
+			System.out.println("0 CURRENT row,col: " +team.getCurrentRow() + " "+ team.getCurrentCol() + "" );
 			board.displayBoard();
 			cellTypeHandler(team, cellType);
+			
 //			for(Cell[] c: board.getBoard()) {
 //				for (Cell cell : c) {
 //					System.out.println("Cell type = " + cell + " " + cell.getTotalPieces());
 //				}
 //			}
-			board.displayBoard();
-			if ((team.current_row == board.rows - 1) && (team.current_col == board.cols - 1)) {
+			System.out.println("1 CURRENT row,col: " +team.getCurrentRow()  + " "+ team.getCurrentCol() + "" );
+//			board.displayBoard();
+			if ((team.getCurrentRow() == board.rows - 1) && (team.getCurrentCol() == board.cols - 1)) {
 				gameStop = true;
 				System.out.println("\nWinners");
 			}
@@ -74,43 +77,40 @@ public class Quest extends Game {
 	public char teamMove(Team team) {
 		char[] list = { 'W', 'w', 'A', 'a', 'S', 's', 'D', 'd', 'Q', 'q', 'I', 'i' };
 		char input = Character.toUpperCase(InputHandler.getCharacter(list));
-		char cell = 0;
+		char cellType = 0;
 		switch (input) {
 		case 'W':
 //			System.out.println("Move up >>");	
-			if (board.isValidMove(team.current_row - 1, team.current_col)) {
-				cell = board.makeMove(team, team.current_row - 1, team.current_col);
-				team.current_row--;
+			if (board.isValidMove(team.getCurrentRow()  - 1, team.getCurrentCol())) {
+				cellType = board.makeMove(team, team.getCurrentRow() - 1, team.getCurrentCol());
 			}
 			break;
 		case 'A':
 //			System.out.println("Move left >>");
-			if (board.isValidMove(team.current_row, team.current_col - 1)) {
-				cell = board.makeMove(team, team.current_row, team.current_col - 1);
-				team.current_col--;
+			if (board.isValidMove(team.getCurrentRow() , team.getCurrentCol() - 1)) {
+				cellType = board.makeMove(team, team.getCurrentRow() , team.getCurrentCol() - 1);
 			}
 			break;
 		case 'S':
 //			System.out.println("Move down >>");
-			if (board.isValidMove(team.current_row + 1, team.current_col)) {
-				cell = board.makeMove(team, team.current_row + 1, team.current_col);
-				team.current_row++;
+			if (board.isValidMove(team.getCurrentRow()  + 1, team.getCurrentCol())) {
+				cellType = board.makeMove(team, team.getCurrentRow() + 1, team.getCurrentCol());
 			}
 			break;
 		case 'D':
 //			System.out.println("Move right >>");
-			if (board.isValidMove(team.current_row, team.current_col + 1)) {
-				cell = board.makeMove(team, team.current_row, team.current_col + 1);
-				team.current_col++;
+			if (board.isValidMove(team.getCurrentRow(), team.getCurrentCol() + 1)) {
+				cellType = board.makeMove(team, team.getCurrentRow(), team.getCurrentCol() + 1);
 			}
 			break;
 		case 'Q':
+			System.out.println("Quittting... user typed 'Q'");
 			break;
 		case 'I':
 			System.out.println("Printing information... user typed 'I'");
 			break;
 		}
-		return cell;
+		return cellType;
 	}
 	/*
 	 * Current cell further actions.
@@ -148,12 +148,13 @@ public class Quest extends Game {
 	}
 	
 	private void initFight(Team team) {
-		// TODO Auto-generated method stub
-		System.out.println("Fight started in row,col: " +team.current_row + " "+ team.current_col + "" );
-		board.getBoard()[team.current_row][team.current_col].removePiece(new SimplePiece('M'));
-		System.out.println(" initFight : " + board.getBoard()[team.current_row][team.current_col].getTotalPieces());
-		return;
+		Fight.startFightMessage();
+		Fight.fight(team);
+		System.out.println("Countdown ended. \nFight started in row,col: " +team.getCurrentRow() + " "+ team.getCurrentCol() + "" );
 
+		board.removeMonstersFromCell(team.getCurrentRow(), team.getCurrentCol());
+		System.out.println("Fight ended : " + board.getBoard()[team.getCurrentRow()][team.getCurrentCol()].getAllPieces());
+		return;
 	}
 
 }

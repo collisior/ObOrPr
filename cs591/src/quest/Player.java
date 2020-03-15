@@ -20,7 +20,7 @@ public class Player {
 		this.WinnerStatus = false;
 		this.totalWins = 0;
 		setId(id);
-		System.out.print("Player " +getId()+ ": ");
+		System.out.print("Player " + getId() + ": ");
 		this.info = new HumanInfo();
 	}
 
@@ -33,62 +33,65 @@ public class Player {
 	}
 
 	/*
-	 *  Retrieve this Player's figure
+	 * Retrieve this Player's figure
 	 */
 	public Piece getPlayerPiece() {
 		return this.piece;
 	}
-	
+
 	/*
-	 *  Set this Player's piece
+	 * Set this Player's piece
 	 */
 	public void setPlayerPiece(Piece p) {
 		this.piece = p;
 	}
 
 	/*
-	 *  Set this Player's team id
+	 * Set this Player's team id
 	 */
 	public void setTeamId(int teamId) {
 		this.teamId = teamId;
 	}
 
 	/*
-	 *  Clear this Player's team id
+	 * Clear this Player's team id
 	 */
 	public void clearTeamId() {
 		setTeamId(-1);
 	}
 
 	/*
-	 *  Retrieve this Player's team id
+	 * Retrieve this Player's team id
 	 */
 	public int getTeamId() {
 		return this.teamId;
 	}
 
 	/*
-	 *  Change this Player's state to Winner 
+	 * Change this Player's state to Winner
 	 */
 	public void changeToWinner() {
 		if (this.WinnerStatus == false) {
 			this.WinnerStatus = true;
 		}
 	}
+
 	/*
-	 *  Change this Player's state to Non Winner 
+	 * Change this Player's state to Non Winner
 	 */
 	public void changeToNonWinner() {
 		if (this.WinnerStatus == true) {
 			this.WinnerStatus = false;
 		}
 	}
+
 	/*
 	 * Update Player's total number of wins
 	 */
 	public void addWin() {
 		this.totalWins++;
 	}
+
 	// Check if this Player is a Winner (return true if Winner)
 	public boolean isWinner() {
 		return this.WinnerStatus;
@@ -120,10 +123,10 @@ public class Player {
 	}
 
 	public String toString() {
-		if (this.info.getUsername()!="") {
-			return "Player " + getId()+": "+ info.getUsername();
+		if (this.info.getUsername() != "") {
+			return "Player " + getId() + ": " + info.getUsername();
 		}
-		return "Player " + getId()+": "+ info.getFirstName();
+		return "Player " + getId() + ": " + info.getFirstName();
 	}
 
 	public QuestCharacter getHero() {

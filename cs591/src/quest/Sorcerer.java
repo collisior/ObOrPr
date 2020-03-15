@@ -6,4 +6,10 @@ public class Sorcerer extends Hero {
 		super(name, mana, strength, agility, dexterity, money, experience);
 	}
 
+	public void upgradeSkills() {
+		setStrength(getStrength() + getStrength() * 0.05);
+		setAgility(getAgility() + getAgility() * (0.05 + 0.05));
+		setDexterity(getDexterity() + getDexterity() * (0.05 + 0.05));
+	}
+
 }

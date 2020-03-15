@@ -14,8 +14,8 @@ public class Team {
 	private int turnIndex = 0; //this team's player turn 
 	private char figure; // e.g. can be used in TicTacToe, Checkers
 	private Piece piece;
-	public int current_row;
-	public int current_col;
+	private int current_row;
+	private int current_col;
 	/*
 	 * Constructor to initialize team.
 	 */

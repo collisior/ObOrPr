@@ -36,12 +36,12 @@ public class QuestBoard extends Board implements Color {
 	 * Set player's mark on targeted cell position on the game-board.
 	 */
 	char makeMove(Team team, int row, int col) {
-		this.getBoard()[team.current_row][team.current_col].removePiece(team.getPiece());
-		this.getBoard()[row][col].placePiece(team.getPiece());
+		this.getBoard()[team.getCurrentRow()][team.getCurrentCol()].removePiece(team.getPiece());
+		putTeamInCell(team, row, col);
 		System.out.println("this.getBoard()[row][col] All() - "+ this.getBoard()[row][col].getAllPieces());
-		if (this.getBoard()[row][col].getSinglePiece().getPieceFigure() == ' ') {
+		if ((this.getBoard()[row][col].getSinglePiece().getPieceFigure() == ' ') &&(this.getBoard()[row][col].getSinglePiece().getPieceFigure() != '$')) {
 			if (monstersExist()) {
-				this.getBoard()[team.current_row][team.current_col].placePiece(new SimplePiece('M')); // put monster piece
+				board[row][col].placePiece(new SimplePiece('M')); // put monster piece
 				System.out.println("this.getBoard()[row][col] All() - "+ this.getBoard()[row][col].getAllPieces());
 				return 'M';
 			}
@@ -59,7 +59,23 @@ public class QuestBoard extends Board implements Color {
 		}
 		return false;
 	}
-
+	
+	public void setCommonCell(int row, int col) {
+		board[row][col].clearCell();
+		board[row][col].placePiece(new SimplePiece(' '));
+	}
+	
+	public void putTeamInCell(Team team, int row, int col) {
+		board[row][col].placePiece(new SimplePiece(team.getPiece().getPieceFigure()));
+		team.setCurrentRow(row);
+		team.setCurrentCol(col);
+	}
+	public void putMonstersInCell(int row, int col) {
+		board[row][col].placePiece(new SimplePiece('M'));
+	}
+	public void removeMonstersFromCell(int row, int col) {
+		board[row][col].removePiece(new SimplePiece('M'));
+	}
 	private void spreadCells() {
 		for (int r = 0; r < rows; r++) {
 			for (int c = 0; c < cols; c++) {
@@ -67,7 +83,7 @@ public class QuestBoard extends Board implements Color {
 				board[r][c].placePiece(getRandomCell());
 			}
 		}
-		if (board[0][0].getSinglePiece().getPieceFigure() == 'X') {
+		if (board[0][0].getSinglePiece().getPieceFigure() != ' ') {
 			board[0][0].clearCell();
 			board[0][0].placePiece(new SimplePiece(' '));
 		}
