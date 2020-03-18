@@ -35,10 +35,14 @@ public class Quest extends Game {
 	public void tmpSetupTeams() {
 		Team team = new Team(1);
 		Player player = addPlayer();
+		Player player2 = addPlayer();
 		team.addPlayer(player);
+		team.addPlayer(player2);
+		
 		SetupQuestHelper.setupTeam(team);
 		team.setPiece(new SimplePiece('T'));
 		addTeam(team);
+		
 		board.getBoard()[0][0].placePiece(team.getPiece());
 		System.out.println("\nTeam piece = " +team.getPiece()+ "\n");
 		
@@ -47,7 +51,7 @@ public class Quest extends Game {
 	public void startGame() {
 		board = new QuestBoard(4, 4);
 //		setupTeams();
-		tmpSetupTeams(); // by default 1 team, (1 players in 1 team)
+		tmpSetupTeams(); // by default 1 team, (2 players in 1 team)
 		setGamersQueue(getTeams());
 		boolean gameStop = false;
 		board.displayBoard();
@@ -132,14 +136,13 @@ public class Quest extends Game {
 	}
 
 	private void enterMarket(Player player) {
-		System.out.println(player + ", do you want to purchase items Market?");
-		if (InputHandler.YesOrNo()) {
-			player.getHero().sellFromStorage();
-			
-		}
 		System.out.println(player + ", do you want sell your items for the half of the price?");
 		if (InputHandler.YesOrNo()) {
-//			Market.purchaseFromMarket(player);
+			Market.sellToMarket(player.getHero());
+		}
+		System.out.println(player + ", do you want to purchase new ammunition from Market?");
+		if (InputHandler.YesOrNo()) {
+			Market.purchaseFromMarket(player.getHero());
 		}
 		System.out.println(player + ", do you want exit Market? (Type 'N' if you want to continue shopping/selling)");
 		if (InputHandler.YesOrNo()) {

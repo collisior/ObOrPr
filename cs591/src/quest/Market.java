@@ -1,7 +1,5 @@
 package quest;
 
-import java.util.List;
-
 public class Market implements FilesInfoInterface {
 
 	/*
@@ -14,8 +12,8 @@ public class Market implements FilesInfoInterface {
 
 	public static Ammunition chooseItem() {
 
-		System.out.println("Choose Ammunition type (A - armor, W - weapon, S - spell, P - potion) "
-				+ "and index # of specified ammunition. For example, to choose Gaerdal_Ironhand type 'W1'.");
+		System.out.println("Choose Ammunition type (A - Armor, W - Weapon, P - Potion, I - Ice Spell, etc.) "
+				+ "and index # of specified ammunition. \ne.g. to buy Platinum_Shield type 'A1'.");
 		boolean inputIsValid = false;
 		int num = 0;
 		String[] ammunitionData = null;
@@ -54,24 +52,28 @@ public class Market implements FilesInfoInterface {
 			amm = new Armor(ammunitionData[0], ammunitionDataInt[0], ammunitionDataInt[1], ammunitionDataInt[2]);
 		}
 		if (ammunitionType == 'W') {
-			amm = new Weapon(ammunitionData[0], ammunitionDataInt[0], ammunitionDataInt[1], ammunitionDataInt[2], ammunitionDataInt[3]);
+			amm = new Weapon(ammunitionData[0], ammunitionDataInt[0], ammunitionDataInt[1], ammunitionDataInt[2],
+					ammunitionDataInt[3]);
 		}
 		if (ammunitionType == 'P') {
 			amm = new Potion(ammunitionData[0], ammunitionDataInt[0], ammunitionDataInt[1], ammunitionDataInt[2]);
 		}
 		if (ammunitionType == 'I') {
-			amm = new IceSpell(ammunitionData[0], ammunitionDataInt[0], ammunitionDataInt[1], ammunitionDataInt[2], ammunitionDataInt[3]);
+			amm = new IceSpell(ammunitionData[0], ammunitionDataInt[0], ammunitionDataInt[1], ammunitionDataInt[2],
+					ammunitionDataInt[3]);
 		}
 		if (ammunitionType == 'F') {
-			amm = new FireSpell(ammunitionData[0], ammunitionDataInt[0], ammunitionDataInt[1], ammunitionDataInt[2], ammunitionDataInt[3]);
+			amm = new FireSpell(ammunitionData[0], ammunitionDataInt[0], ammunitionDataInt[1], ammunitionDataInt[2],
+					ammunitionDataInt[3]);
 		}
 		if (ammunitionType == 'L') {
-			amm = new LightningSpell(ammunitionData[0], ammunitionDataInt[0], ammunitionDataInt[1], ammunitionDataInt[2], ammunitionDataInt[3]);
+			amm = new LightningSpell(ammunitionData[0], ammunitionDataInt[0], ammunitionDataInt[1],
+					ammunitionDataInt[2], ammunitionDataInt[3]);
 		}
 		return amm;
 	}
 
-	private static  String getMarketFilename(char c) {
+	private static String getMarketFilename(char c) {
 		String filename = "";
 		if (c == 'A') {
 			filename = "csv/Armory.csv";
@@ -79,22 +81,60 @@ public class Market implements FilesInfoInterface {
 		if (c == 'W') {
 			filename = "csv/Weaponry.csv";
 		}
-		if (c == 'S') {
-			System.out.println("Which spells do you want to purchase? (I - Ice, L - Lightning, F - Fire) case sensitive!");
-			char spell = InputHandler.getCharacter(new char[] {'I','L','F'});
-			if(spell == 'I') {
-				filename = "csv/IceSpells.csv";
-			}
-			if(spell == 'L') {
-				filename = "csv/LightningSpells.csv";
-			}
-			if(spell == 'F') {
-				filename = "csv/FireSpells.csv";
-			}
-		}
 		if (c == 'P') {
 			filename = "csv/Potions.csv";
 		}
+		if (c == 'I') {
+			filename = "csv/IceSpells.csv";
+		}
+		if (c == 'L') {
+			filename = "csv/LightningSpells.csv";
+		}
+		if (c == 'F') {
+			filename = "csv/FireSpells.csv";
+		}
 		return filename;
+	}
+
+	public static void purchaseFromMarket(QuestCharacter questCharacter) {
+		showcase();
+		Hero hero = (Hero) questCharacter;
+		double budget = hero.getMoney();
+		int max_level = hero.getLevel();
+		Ammunition item = chooseItem();
+		if ((item.cost <= budget) && (item.required_level <= max_level)) {
+			hero.setMoney(budget - item.cost);
+			hero.getStorage().add(item);
+		} else if ((item.cost > budget) && (item.required_level <= max_level)) {
+			System.out.println("You can't afford this Ammuntion: " + item.name);
+		} else if ((item.required_level > max_level)) {
+			System.out.println("You can't purchase this Ammunition, higher level required!");
+		}
+		System.out.println("Do you want to continue shopping?");
+		if (InputHandler.YesOrNo()) {
+			purchaseFromMarket(questCharacter);
+		}
+	}
+
+	public static void sellToMarket(QuestCharacter questCharacter) {
+		Hero hero = (Hero) questCharacter;
+		if (hero.getStorage().size() <= 0) {
+			System.out.println("Your storage is empty! No items to sell.");
+		} else {
+			hero.getStorage().showStorage();
+			System.out.println("\nWhich item do you want to sell? Type index # of item to sell.");
+			int index = InputHandler.getInteger(0, hero.getStorage().size() - 1);
+			Ammunition item = hero.getStorage().get(index);
+			hero.setMoney(hero.getMoney() + item.cost / 2);
+			hero.getStorage().remove(index);
+			System.out.println(" >>> after Storage size = " + hero.getStorage().size());
+			System.out.println("You sold " + item + " for $" + item.cost / 2);
+
+		}
+		System.out.println("\n Do you want to continue selling?");
+		if (InputHandler.YesOrNo()) {
+			sellToMarket(questCharacter);
+		}
+		
 	}
 }

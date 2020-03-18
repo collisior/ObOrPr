@@ -1,5 +1,7 @@
 package quest;
 
+import java.util.Random;
+
 public abstract class QuestCharacter {
 	protected String name;
 	protected double hp;
@@ -39,26 +41,52 @@ public abstract class QuestCharacter {
 		this.level = level;
 	}
 
+	public boolean isAlive() {
+		if (getHp() <= 0) {
+			return false;
+		}
+		return true;
+	}
+
 	public String toString() {
-		return name;
+		return "Name: " + name + "|  Hp: " + hp + "|  Level: " + level;
+	}
+
+	public abstract String displayDetails();
+
+	/*
+	 * Return true if Hero/Monster are lucky to dodge an incoming attack.
+	 */
+	public boolean dodgeAttack() {
+		Random random = new Random();
+		double chance = getDodgeChance();
+		if (random.nextInt(100) <= chance) {
+			return true;
+		}
+		return false;
 	}
 
 	protected abstract double getDodgeChance();
-	
-	protected abstract void sellFromStorage();
 
 	protected abstract Ammunition chooseFromStorage();
 
-	protected abstract void attack(Ammunition itemToAttack, QuestCharacter character);
-
-	protected abstract double damageCalculation(Ammunition itemToAttack, QuestCharacter character);
+	/*
+	 * Return damage calculated that must be caused on the passed character.
+	 */
+	protected abstract double damageCalculation(QuestCharacter character);
 
 	protected void applyDamage(double damage) {
 		setHp(getHp() - damage);
-
 	}
-	protected abstract void endFightUpdate();
+
+	protected abstract void endOfFight();
 
 	protected abstract void upgradeSkills();
+
+	protected abstract PersonalStorage getStorage();
+
+	protected abstract void showStorage();
+
+	protected abstract void levelUp();
 
 }

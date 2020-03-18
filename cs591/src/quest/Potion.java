@@ -16,23 +16,49 @@ public class Potion extends Ammunition {
 	public void setAttributeIncrease(double attribute_increase) {
 		this.attribute_increase = attribute_increase;
 	}
-
+	
+	/*
+	 * Increase assigned Hero's power.
+	 */
+	public void usePotion(Hero hero) {
+		System.out.println("Potion to be used: ");
+		switch(this.name) {
+		case "Healing_Potion":
+			hero.setHp(hero.getHp() + getAttributeIncrease());
+			break;
+		case "Strength_Potion":
+			hero.setStrength(hero.getStrength() + getAttributeIncrease());
+			break;
+		case "Magic_Potion":
+			hero.setMana(hero.getMana() + getAttributeIncrease());
+			break;
+		case "Luck_Elixir":
+			hero.setDexterity(hero.getDexterity() + getAttributeIncrease());
+			break;
+		case "Mermaid_Tears":
+			hero.setAgility(hero.getAgility() + getAttributeIncrease());
+			break;
+		case "Ambrosia":
+			hero.setHp(hero.getHp() + getAttributeIncrease());
+			hero.setStrength(hero.getStrength() + getAttributeIncrease());
+			hero.setMana(hero.getMana() + getAttributeIncrease());
+			hero.setDexterity(hero.getDexterity() + getAttributeIncrease());
+			hero.setAgility(hero.getAgility() + getAttributeIncrease());
+			break;
+		default:
+			System.out.println("This potion is non-existent in this universe...");
+		}
+		
+	}
 	@Override
 	protected double getDamage() {
-		// TODO Auto-generated method stub
 		return 0;
 	}
 
 	@Override
-	protected void setDamage(double damage) {
-		// TODO Auto-generated method stub
-		
-	}
+	protected void setDamage(double damage) {}
 
 	@Override
-	protected void applyExtraDamage(Monster monster) {
-		// TODO Auto-generated method stub
-		
-	}
+	protected void applyExtraDamage(Monster monster) {}
 
 }

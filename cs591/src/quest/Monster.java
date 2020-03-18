@@ -26,7 +26,7 @@ public class Monster extends QuestCharacter {
 	public void setDefense(double defense) {
 		this.defense = defense;
 	}
-	
+
 	@Override
 	public double getDodgeChance() {
 		return dodgeChance;
@@ -37,38 +37,65 @@ public class Monster extends QuestCharacter {
 	}
 
 	@Override
-	protected void sellFromStorage() {
-		// TODO: nothing
-	}
-
-	@Override
 	protected Ammunition chooseFromStorage() {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
-	@Override
-	public void attack(Ammunition itemToAttack, QuestCharacter monster) {
-		// TODO Auto-generated method stub
-		
+	/*
+	 * 
+	 */
+	public double damageCalculation(Hero hero) {
+		double finalDamage = 0;
+		if (hero.getCurrentAmmunition() instanceof Armor) {
+			Armor armor = (Armor) hero.getCurrentAmmunition();
+			System.out.println(">>>> Armor defense = " + armor.getDamageReduction());
+			System.out.println(">>>> Monster damage = " + getDamage());
+			if ((getDamage() - armor.getDamageReduction()) > 0) {
+				finalDamage = getDamage() - armor.getDamageReduction();
+				System.out.println(">>>> finalDamage > 0 = " + finalDamage);
+			}
+		} else {
+			finalDamage = getDamage();
+		}
+		return finalDamage;
 	}
 
 	@Override
-	public double damageCalculation(Ammunition itemToAttack, QuestCharacter character) {
+	protected void endOfFight() {
 		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	protected void endFightUpdate() {
-		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
 	protected void upgradeSkills() {
 		// TODO Auto-generated method stub
-		
+
+	}
+
+	@Override
+	protected void levelUp() {
+		// TODO Auto-generated method stub
+	}
+
+	@Override
+	protected PersonalStorage getStorage() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	protected void showStorage() {
+		// TODO Auto-generated method stub
+
+	}
+
+	public String displayDetails() {
+		return "Name: " + name + "\nHp: " + hp + "\nLevel: " + level + "\nDefense: " + defense + "\nDamage: " + damage;
+	}
+
+	@Override
+	protected double damageCalculation(QuestCharacter character) {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 
 }
