@@ -1,0 +1,5 @@
+Name,power,luck,canDamage
+Dragon,90,30,1
+Gryphon,80,40,1
+Pegasus,75,37,1
+Unicorn,35,98,0
