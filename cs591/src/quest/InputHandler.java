@@ -60,7 +60,6 @@ public class InputHandler {
 		System.out.println("\nYes or No (y/n)?  ");
 		while (playerInputIsValid == false) {
 			try {
-				System.out.print("\nInput must be (y/n). ");
 				char input = getCharacter();
 				if (input == 'y' || input == 'Y') {
 					answer = playerInputIsValid = true;
@@ -69,7 +68,7 @@ public class InputHandler {
 					answer = false;
 				}
 			} catch (InputMismatchException e) {
-				System.out.println("Invalid input. Try again. ");
+				System.out.print("\nInput must be (y/n). ");
 			}
 		}
 		return answer;

@@ -92,6 +92,12 @@ public class Team implements Color {
 		this.turnIndex = (turnIndex + 1) % getTeamSize();
 		return team.get(i);
 	}
+	/*
+	 * Returns team's current player with current turn.
+	 */
+	public Player getCurrentTeamPlayer() {
+		return team.get(this.turnIndex);
+	}
 
 	/*
 	 * Returns team's player with previous turn. Updates turnIndex.
@@ -164,7 +170,7 @@ public class Team implements Color {
 	}
 
 	public String toString() {
-		return "Team " + id + ": " + getName();
+		return color+"Team " + id + ": " + getName()+RESET;
 	}
 	public int getCurrentRow() {
 		return current_row;

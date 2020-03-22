@@ -41,7 +41,7 @@ public class DisplayBoard implements Color {
 				} else if (board.board[i][j].pieceExists(new SimplePiece('M'))) { // monsters in this cell
 					tmp = "|" + PURPLE + "******" + RESET;
 				}
-				if (board.board[i][j].getSinglePiece().getPieceFigure() == 'F') { // finish
+				if ((Quest.gameMode == 0) &&  (board.board[i][j].getSinglePiece().getPieceFigure() == 'F')) { // finish
 					tmp = "|" + WHITE + "======" + RESET;
 				}
 				b += tmp;
@@ -57,7 +57,7 @@ public class DisplayBoard implements Color {
 				else if (board.board[i][j].getSinglePiece().getPieceFigure() == '$') { // Magic market
 					tmp = "|" + CYAN + "/''''\\" + RESET;
 					if (currentTeamHere(i, j, quest)) {
-						tmp = "|" + CYAN + "/ " + RESET + quest.currentTeam.getPiece() + CYAN + " \\" + RESET;
+						tmp = "|" + CYAN + "/" + RESET +RED+">"+RESET+ quest.currentTeam.getPiece() +RED+"<"+RESET+ CYAN + "\\" + RESET;
 					} else if (teamExist(i, j, quest)) {
 						tmp = "|" + CYAN + "/ " + RESET + getPiece(i, j, quest) + CYAN + " \\" + RESET;
 					}
@@ -65,20 +65,20 @@ public class DisplayBoard implements Color {
 				else if (board.board[i][j].pieceExists(new SimplePiece('M'))) { // monsters in this cell
 					tmp = "|" + PURPLE + "**" + RESET + RED + "**" + RESET + PURPLE + "**" + RESET;
 					if (currentTeamHere(i, j, quest)) {
-						tmp = "|" + PURPLE + "**" + RESET + quest.currentTeam.getPiece() + PURPLE + "**" + RESET;
+						tmp = "|" + PURPLE + "*" + RESET +RED+">"+RESET+ quest.currentTeam.getPiece() +RED+"<"+RESET+PURPLE + "*" + RESET;
 					} else if (teamExist(i, j, quest)) {
 						tmp = "|" + PURPLE + "**" + RESET + getPiece(i, j, quest) + PURPLE + "**" + RESET;
 					}
 				} else if (teamExist(i, j, quest)) {
 					tmp = "|  " + getPiece(i, j, quest) + "  ";
 					if (currentTeamHere(i, j, quest)) {
-						tmp = "|  " + quest.currentTeam.getPiece() + "  ";
+						tmp = "| "+RED+">"+RESET + quest.currentTeam.getPiece() +RED+"<"+RESET+ " ";
 					}					
 				}
 				// if played with FINISH cell 
-				if (board.board[i][j].getSinglePiece().getPieceFigure() == 'F') {
+				if ((Quest.gameMode == 0) && (board.board[i][j].getSinglePiece().getPieceFigure() == 'F')) {
 					if (board.board[i][j].pieceExists(new SimplePiece('⬤'))) { // finish
-						tmp = "|" + RED + "> "+getPiece(i, j, quest)+" <" + RESET;
+						tmp = "|> "+getPiece(i, j, quest)+" <";
 					}
 				}
 				b += tmp;
@@ -94,7 +94,7 @@ public class DisplayBoard implements Color {
 				} else if (board.board[i][j].pieceExists(new SimplePiece('M'))) { // monsters in this cell
 					tmp = "|" + PURPLE + "******" + RESET;
 				}
-				if (board.board[i][j].getSinglePiece().getPieceFigure() == 'F') { // finish
+				if ((Quest.gameMode == 0) && (board.board[i][j].getSinglePiece().getPieceFigure() == 'F')) { // finish
 					tmp = "|" + WHITE + "======" + RESET;
 				}
 				b += tmp;

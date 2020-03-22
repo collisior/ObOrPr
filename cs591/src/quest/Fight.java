@@ -22,6 +22,7 @@ public class Fight implements Color, Vizualization {
 				Hero hero = nextAliveHero(team);
 				Monster monster = nextAliveMonster();
 				if (hero.isAlive() && monster.isAlive()) {
+					System.out.println(team.getCurrentTeamPlayer() +", it's your turn to attack " + monster+".");
 					round(hero, monster);
 					hero.endOfRound();
 				}
@@ -70,7 +71,7 @@ public class Fight implements Color, Vizualization {
 			hero.getDefeatedMonstersFight().add(monster);
 			deadMonsters.add((Monster) monster);
 			aliveMonsters.remove(monster);
-			if(!aliveMonsters.isEmpty()) {
+			if (!aliveMonsters.isEmpty()) {
 				System.out.println(MONSTER + "\n" + DEFEATED);
 			}
 		}
@@ -158,25 +159,25 @@ public class Fight implements Color, Vizualization {
 		}
 		return totalHp;
 	}
-	
+
 	/*
 	 * Get Monster's max level from this fight.
 	 */
 	public static int getMonstersLevel() {
 		int level = 0;
 		for (Monster monster : deadMonsters) {
-			if(level < monster.getLevel()) {
+			if (level < monster.getLevel()) {
 				level = monster.getLevel();
 			}
 		}
 		return level;
 	}
+
 	public static void monsterCleaning() {
 		aliveMonsters.clear();
 		deadMonsters.clear();
 		monsterTurnIndex = 0;
 	}
-
 
 	public static void fightCountdown() {
 		Timer timer = new Timer();
@@ -193,7 +194,7 @@ public class Fight implements Color, Vizualization {
 					System.out.println(TWO);
 				} else if (i == 3) {
 					System.out.println(THREE);
-				} 
+				}
 				i--;
 				if (i < 0)
 					timer.cancel();

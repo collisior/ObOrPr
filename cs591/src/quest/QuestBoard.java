@@ -8,7 +8,7 @@ public class QuestBoard extends Board implements Color {
 		super();
 		spreadCells();
 	}
-	
+
 	/*
 	 * Constructor to initialize fixed ROWxCOL board
 	 */
@@ -20,7 +20,9 @@ public class QuestBoard extends Board implements Color {
 	public boolean isValidMove(int r, int c) {
 		if (boardPositionExists(r, c)) {
 			if (board[r][c].getSinglePiece().getPieceFigure() == 'X') {
-				System.out.println("You shall not pass into this cell! Try another move.");
+				System.out.println("- - - - - - - - - - - - - - - - - - - - - - - - - - - - - ");
+				System.out.println(RED + "   You shall not pass into this cell! Try another move." + RESET);
+				System.out.println("- - - - - - - - - - - - - - - - - - - - - - - - - - - - - ");
 				return false;
 			} else {
 				return true;
@@ -73,10 +75,7 @@ public class QuestBoard extends Board implements Color {
 	}
 
 	public void removeMonstersFromCell(int row, int col) {
-		System.out.println("Remove monster from cell " + row + ", " + col );
 		board[row][col].removePiece(new SimplePiece('M'));
-		System.out.println("Cell : " + board[row][col]);
-		System.out.println("Cell total pieces " + board[row][col].getTotalPieces());
 	}
 
 	private void spreadCells() {
@@ -90,11 +89,14 @@ public class QuestBoard extends Board implements Color {
 			board[0][0].clearCell();
 			board[0][0].placePiece(new SimplePiece(' '));
 		}
-		board[rows - 1][cols - 1].clearCell();
-		board[rows - 1][cols - 1].placePiece(new SimplePiece('F')); 
+
+		if (Quest.gameMode == 0) {
+			board[rows - 1][cols - 1].clearCell();
+			board[rows - 1][cols - 1].placePiece(new SimplePiece('F'));
+		}
 		/*
-		 * Check if path exists from from top left cell to bottom right cell.
-		 * Call spreadcells() again if path not found.
+		 * Check if path exists from from top left cell to bottom right cell. Call
+		 * spreadcells() again if path not found.
 		 */
 		if (!validPathExist()) {
 			spreadCells();
@@ -116,7 +118,7 @@ public class QuestBoard extends Board implements Color {
 		}
 		return p;
 	}
-	
+
 	public void displayBoard(Game game) {
 		if (game instanceof Quest) {
 			DisplayBoard.showQuestBoard((Quest) game, this);
@@ -141,5 +143,17 @@ public class QuestBoard extends Board implements Color {
 			return true;
 		}
 		return false;
+	}
+
+	public void putInRandomCell(Piece piece) {
+		boolean foundAvailableCell = false;
+		while (!foundAvailableCell) {
+			int row = Quest.random.nextInt(rows - 1);
+			int col = Quest.random.nextInt(cols - 1);
+			if (board[row][col].getSinglePiece().getPieceFigure() != 'X') {
+				board[row][col].placePiece(piece);
+				foundAvailableCell = true;
+			}
+		}
 	}
 }

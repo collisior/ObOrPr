@@ -57,7 +57,7 @@ public abstract class QuestCharacter implements Color {
 	}
 
 	public String toString() {
-		return "Name: " + name + "\nHp: " + hp + "\nLevel: " + level;
+		return color + name + RESET;
 	}
 
 	public abstract String displayDetails();

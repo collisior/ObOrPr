@@ -158,7 +158,9 @@ public abstract class Game {
 		char[] existingGames = new char[] { '0', '1', 'Q' };
 		System.out.println("Pick a game you want to play...Type input options (Very case sensitive!):\n"
 				+ "'0' - TicTacToe (personalize dimension, strike number, teams, and players)\n"
-				+ "'1' - Classic 3x3 TicTacToe with 'X' and 'O'.\n" + "'Q' to quit\n");
+				+ "'1' - Classic 3x3 TicTacToe with 'X' and 'O'.\n"
+				+ "'2' - Quest \n" 
+				+ "'Q' to quit\n");
 
 		char input = InputHandler.getCharacter(existingGames);
 

@@ -27,6 +27,9 @@ public class Player {
 	public void setId(int id) {
 		this.id = id;
 	}
+	public HumanInfo getInfo() {
+		return info;
+	}
 
 	public int getId() {
 		return this.id;
