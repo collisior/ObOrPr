@@ -9,7 +9,7 @@ public  abstract class Piece implements Comparable<Piece>, Color {
 	private char figure = ' ';
 	private int x = -1, y = -1;
 	private int prev_x = -1, prev_y = -1;
-	private String color = WHITE;
+	private String color = WHITE; //default color
 	
 
 	public Piece(char figure) {
@@ -92,7 +92,7 @@ public  abstract class Piece implements Comparable<Piece>, Color {
 	}
 
 	public String toString() {
-		return this.color+ this.figure + ANSI_RESET;
+		return this.color+ this.figure + RESET;
 	}
     public boolean equals(Piece otherPiece) {       
         if(this.getPieceFigure() == otherPiece.getPieceFigure()){

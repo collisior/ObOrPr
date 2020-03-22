@@ -12,7 +12,10 @@ public abstract class Ammunition {
 	}
 
 	public String toString() {
-		return name + "\nCost: " + cost +"\nRequired Level: "+required_level;
+		if (name == null) {
+			return "Fists";
+		}
+		return name;
 	}
 	protected abstract double getDamage();
 	

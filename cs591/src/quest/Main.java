@@ -1,14 +1,9 @@
 package quest;
 
-import java.util.Random;
-
 public class Main {
 		
 	public static void main(String[] args) {
 		
-		Random random = new Random();
-		int randomNum = random.nextInt(99);
-		System.out.println("\nWelcome to the game!\n : " +randomNum);
 		CSVFilesHandler.setData();
 		System.out.println("\nWelcome to the game!\n");
 		// Hero 

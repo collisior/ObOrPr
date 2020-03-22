@@ -6,5 +6,40 @@ public class Spirit extends Monster {
 		super(name, level, damage, defense, dodgeChance);
 		// TODO Auto-generated constructor stub
 	}
-	
+
+	public void image() {
+		String image =
+				"                                   ╓#²▀╙`\"≈,                                    \n" + 
+				"                                 █Γ         █          ╓Φ═⌐≈φ╖                  \n" + 
+				"                                ▌ ╓      ,   █       ╒█         ╙▀w             \n" + 
+				"                               ▌ ███▌ ▄████  █       █              ╙╗          \n" + 
+				"                  ,╓═⌐¼       ╫ ▓████ █████  █      █                  ▀w       \n" + 
+				"                Φ▀    ]█      █ ▀▀▀└   └└╙   ▌     ╒▌                    ▀▄     \n" + 
+				"             ▄▀        █      █  ▄█████▄     █    ,█                  ╓▀\"\"▀█    \n" + 
+				"           ▄▀           █     █ █████████    └█-▄█                   ▄█         \n" + 
+				"         ,█              ╙▓  ▐▌ ████████▌                          █            \n" + 
+				"        ▓╨                      ██    ▀█                           █            \n" + 
+				"       █                                                    ,▄   ,Æ█╕           \n" + 
+				"      █                                                  ,- █  ██               \n" + 
+				"     █▄                                                  █  █                   \n" + 
+				"     `╙▌                                                 █                      \n" + 
+				"       █  ,Γ██▀█                                        █                       \n" + 
+				"       █ ╒      █ ▄Γ ██▀▓                              ▓\"                       \n" + 
+				"       █ █       █       ▀              ╒            ╓█                         \n" + 
+				"       ██⌐                 ╙«                     a█▌                           \n" + 
+				"        ╙                      \"²≈┐   ,,,▄          µ                           \n" + 
+				"                                     ╙█            ▓                            \n" + 
+				"                                      █          ▄▀                             \n" + 
+				"                                     ▓         ▄▀                               \n" + 
+				"                                     █         █                                \n" + 
+				"                                     └└ █       █                               \n" + 
+				"                                               ,█                               \n" + 
+				"                                        ▐    ,▌                                 \n" + 
+				"                                         █,  █                                  \n" + 
+				"                                           █  ▌                                 \n" + 
+				"                                            █ █                                 \n" + 
+				"                                            ██▀                                 \n" + 
+				"                                            ▀    ";
+		System.out.println(color + image + RESET);
+	}
 }

@@ -1,12 +1,12 @@
 package quest;
 
-import java.util.Random;
-
-public abstract class QuestCharacter {
+public abstract class QuestCharacter implements Color {
 	protected String name;
 	protected double hp;
 	protected int level;
-
+	protected boolean dodgedAttack = false;
+	protected String color = WHITE;
+	
 	QuestCharacter(String name, int level) {
 		setName(name);
 		setHp(level * 100);
@@ -40,6 +40,14 @@ public abstract class QuestCharacter {
 	public void setLevel(int level) {
 		this.level = level;
 	}
+	
+	public boolean hasDodgedAttack() {
+		return dodgedAttack;
+	}
+
+	public void setDodgedAttack(boolean dodgedAttack) {
+		this.dodgedAttack = dodgedAttack;
+	}
 
 	public boolean isAlive() {
 		if (getHp() <= 0) {
@@ -49,7 +57,7 @@ public abstract class QuestCharacter {
 	}
 
 	public String toString() {
-		return "Name: " + name + "|  Hp: " + hp + "|  Level: " + level;
+		return "Name: " + name + "\nHp: " + hp + "\nLevel: " + level;
 	}
 
 	public abstract String displayDetails();
@@ -58,28 +66,24 @@ public abstract class QuestCharacter {
 	 * Return true if Hero/Monster are lucky to dodge an incoming attack.
 	 */
 	public boolean dodgeAttack() {
-		Random random = new Random();
 		double chance = getDodgeChance();
-		if (random.nextInt(100) <= chance) {
+		if (Quest.random.nextInt(100) <= chance) {
+			setDodgedAttack(true);
 			return true;
 		}
+		setDodgedAttack(false);
 		return false;
 	}
 
 	protected abstract double getDodgeChance();
-
-	protected abstract Ammunition chooseFromStorage();
-
 	/*
 	 * Return damage calculated that must be caused on the passed character.
 	 */
 	protected abstract double damageCalculation(QuestCharacter character);
 
-	protected void applyDamage(double damage) {
+	protected void applyDamage(double damage) {		
 		setHp(getHp() - damage);
 	}
-
-	protected abstract void endOfFight();
 
 	protected abstract void upgradeSkills();
 
@@ -88,5 +92,7 @@ public abstract class QuestCharacter {
 	protected abstract void showStorage();
 
 	protected abstract void levelUp();
+
+	protected abstract void information();
 
 }

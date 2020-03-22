@@ -5,7 +5,7 @@ import java.util.ArrayList;
 /*
  * The Team class models team that consists of players.
  */
-public class Team {
+public class Team implements Color {
 
 	private ArrayList<Player> team = new ArrayList<Player>();
 	private int id;
@@ -14,6 +14,7 @@ public class Team {
 	private int turnIndex = 0; //this team's player turn 
 	private char figure; // e.g. can be used in TicTacToe, Checkers
 	private Piece piece;
+	String color = RED;
 	private int current_row, current_col;
 	/*
 	 * Constructor to initialize team.

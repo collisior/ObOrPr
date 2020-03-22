@@ -108,7 +108,7 @@ public class Market implements FilesInfoInterface {
 		} else if ((item.cost > budget) && (item.required_level <= max_level)) {
 			System.out.println("You can't afford this Ammuntion: " + item.name);
 		} else if ((item.required_level > max_level)) {
-			System.out.println("You can't purchase this Ammunition, higher level required!");
+			System.out.println("You can't purchase this Ammunition, higher level required! Your level is: " + hero.level);
 		}
 		System.out.println("Do you want to continue shopping?");
 		if (InputHandler.YesOrNo()) {
@@ -127,13 +127,12 @@ public class Market implements FilesInfoInterface {
 			Ammunition item = hero.getStorage().get(index);
 			hero.setMoney(hero.getMoney() + item.cost / 2);
 			hero.getStorage().remove(index);
-			System.out.println(" >>> after Storage size = " + hero.getStorage().size());
 			System.out.println("You sold " + item + " for $" + item.cost / 2);
-
-		}
-		System.out.println("\n Do you want to continue selling?");
-		if (InputHandler.YesOrNo()) {
-			sellToMarket(questCharacter);
+			
+			System.out.println("\n Do you want to continue selling?");
+			if (InputHandler.YesOrNo()) {
+				sellToMarket(questCharacter);
+			}
 		}
 		
 	}

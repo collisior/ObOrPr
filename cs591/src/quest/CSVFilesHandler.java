@@ -12,7 +12,7 @@ import java.util.Map;
 public class CSVFilesHandler implements FilesInfoInterface {
 
 	public static List<List<String>> heroes = new ArrayList<List<String>>(), monsters = new ArrayList<List<String>>(),
-			marketItems = new ArrayList<List<String>>();
+			marketItems = new ArrayList<List<String>>(), mascots = new ArrayList<List<String>>();
 	public static Map<String, Integer> map = new HashMap<String, Integer>();
 
 	public static void main(String[] args) {
@@ -22,7 +22,7 @@ public class CSVFilesHandler implements FilesInfoInterface {
 		 */
 
 		setData();
-		displayMultipleFiles(heroesFilenames);
+		displayMultipleFiles(mascotsFilenames);
 		System.out.println();
 		System.out.println();
 	}
@@ -31,6 +31,7 @@ public class CSVFilesHandler implements FilesInfoInterface {
 		putInMap(heroesFilenames);
 		putInMap(monstersFilenames);
 		putInMap(marketFilenames);
+		putInMap(mascotsFilenames);
 	}
 
 	/*
@@ -65,6 +66,7 @@ public class CSVFilesHandler implements FilesInfoInterface {
 		String line = "", cvsSplitBy = ",";
 		String f = filename.substring(4, filename.length() - 4);
 		System.out.println("" + f);
+		
 		try (BufferedReader br = new BufferedReader(new FileReader(filename))) {
 			while ((line = br.readLine()) != null) {
 				String[] data = line.split(cvsSplitBy);
@@ -97,6 +99,7 @@ public class CSVFilesHandler implements FilesInfoInterface {
 	 */
 	public static void displayMultipleFiles(String[] filenames) {
 		for (String f : filenames) {
+			
 			displayDataFromFile(f);
 		}
 	}

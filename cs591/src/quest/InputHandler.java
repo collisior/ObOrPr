@@ -12,7 +12,7 @@ public class InputHandler {
 		boolean inputIsValid = false;
 		int num = 0;
 		String s = "";
-		
+
 		while (inputIsValid == false) {
 			Scanner scanner = new Scanner(System.in);
 			System.out.print("Enter here (integer): ");
@@ -60,14 +60,13 @@ public class InputHandler {
 		System.out.println("\nYes or No (y/n)?  ");
 		while (playerInputIsValid == false) {
 			try {
+				System.out.print("\nInput must be (y/n). ");
 				char input = getCharacter();
 				if (input == 'y' || input == 'Y') {
 					answer = playerInputIsValid = true;
 				} else if (input == 'n' || input == 'N') {
 					playerInputIsValid = true;
 					answer = false;
-				} else {
-					System.out.print("\nInput must be (y/n). ");
 				}
 			} catch (InputMismatchException e) {
 				System.out.println("Invalid input. Try again. ");
@@ -84,16 +83,15 @@ public class InputHandler {
 		char c = 0;
 		while (inputIsValid == false) {
 			Scanner scanner = new Scanner(System.in);
-			System.out.print("Enter here (character): ");
+			System.out.print("Enter here: ");
 			try {
-				String s = scanner.nextLine().replaceAll("\\s+","");
+				String s = scanner.nextLine().replaceAll("\\s+", "");
 				if (s.length() == 1) {
 					c = s.charAt(0);
 					inputIsValid = true;
 				} else {
 					System.out.println("Too many characters! Type only 1 character!");
 				}
-
 			} catch (InputMismatchException e) {
 				System.out.println("Invalid input. Try again. ");
 			}
@@ -134,7 +132,7 @@ public class InputHandler {
 		boolean playerInputIsValid = false;
 		Scanner scanner = new Scanner(System.in).useDelimiter("[,\\s+]");
 		while (playerInputIsValid == false) {
-			
+
 			System.out.print("Enter two integers (separated by comma or whitespace): ");
 			try {
 				nn[0] = scanner.nextInt();
@@ -148,49 +146,57 @@ public class InputHandler {
 		scanner.close();
 		return nn;
 	}
+
 	/*
 	 * Returns Character input if exists in given character list
 	 */
 	public static String getQuestOneCharOneInt(char[] list, int min, int max) {
 		boolean inputIsValid = false;
 		int num = 0;
-		String result="";
+		String result = "";
 		String input = "";
 		while (inputIsValid == false) {
 			input = getString();
 			input = input.replace(" ", "");
-			char[] clist = input.toCharArray(); 
-			if(input.length() == 2) {
+			char[] clist = input.toCharArray();
+			if (input.length() == 2) {
 				if (Character.isLetter(clist[0])) {
 					for (char c : list) {
-						if((c == clist[0]) && Character.isDigit(input.charAt(1))) {
-							num = Integer.parseInt(""+clist[1]);					
+						if ((c == clist[0]) && Character.isDigit(input.charAt(1))) {
+							num = Integer.parseInt("" + clist[1]);
 							if ((num >= min) && (num <= max)) {
-								result = c +""+num;
+								result = c + "" + num;
 								inputIsValid = true;
 							} else {
 								System.out.println("Invalid input. Number is out of range.");
 							}
-						} 
+						}
 					}
 				} else {
 					System.out.println("Invalid input, must be one letter followed by one integer. Try again. ");
 				}
-				
-				
 			}
 		}
 		return result;
 	}
+
 	/*
 	 * Retrieve and return string input from user
 	 */
 	public static String getString() {
-		String input = "";
 		Scanner scanner = new Scanner(System.in);
-		System.out.print("Enter here: ");
-		input = scanner.nextLine();
-		System.out.println(" input: "+input);
+		String input = null;
+		boolean InputIsValid = false;
+		while (InputIsValid == false) {
+			System.out.print("Type here: ");
+			input = scanner.nextLine();
+			if (input.equals("\\n") || (input.isBlank())) {
+				System.out.println("No input found. Insert something...");
+			} else {
+				InputIsValid = true;
+				break;
+			}
+		}
 		return input;
 	}
 }

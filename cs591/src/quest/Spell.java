@@ -28,6 +28,14 @@ public class Spell extends Ammunition {
 	@Override
 	protected void applyExtraDamage(Monster monster) {
 	}
-
+	/*
+	 * Hero must have enough mana to use this Spell.
+	 */
+	public boolean canUse(Hero hero) {
+		if(hero.getMana() >= this.mana_cost) {
+			return true;
+		}
+		return false;
+	}
 	
 }

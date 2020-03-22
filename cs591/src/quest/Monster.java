@@ -36,33 +36,23 @@ public class Monster extends QuestCharacter {
 		this.dodgeChance = dodgeChance;
 	}
 
-	@Override
-	protected Ammunition chooseFromStorage() {
-		// TODO Auto-generated method stub
-		return null;
-	}
 	/*
-	 * 
+	 * Calculates Final Damage this Monster will cause to given Hero. 
 	 */
 	public double damageCalculation(Hero hero) {
-		double finalDamage = 0;
+		double finalDamage = getDamage();
 		if (hero.getCurrentAmmunition() instanceof Armor) {
 			Armor armor = (Armor) hero.getCurrentAmmunition();
-			System.out.println(">>>> Armor defense = " + armor.getDamageReduction());
-			System.out.println(">>>> Monster damage = " + getDamage());
 			if ((getDamage() - armor.getDamageReduction()) > 0) {
 				finalDamage = getDamage() - armor.getDamageReduction();
-				System.out.println(">>>> finalDamage > 0 = " + finalDamage);
 			}
-		} else {
-			finalDamage = getDamage();
+		} else if ((dodgedAttack == false) && (hero.getCurrentAmmunition() instanceof Spell)) {
+			Spell spell = (Spell) hero.getCurrentAmmunition();
+			finalDamage = getDamage() * spell.skillDeterioration;
+			spell.applyExtraDamage(this);
 		}
-		return finalDamage;
-	}
 
-	@Override
-	protected void endOfFight() {
-		// TODO Auto-generated method stub
+		return finalDamage;
 	}
 
 	@Override
@@ -96,6 +86,12 @@ public class Monster extends QuestCharacter {
 	protected double damageCalculation(QuestCharacter character) {
 		// TODO Auto-generated method stub
 		return 0;
+	}
+
+	@Override
+	protected void information() {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

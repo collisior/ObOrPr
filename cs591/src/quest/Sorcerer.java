@@ -11,5 +11,29 @@ public class Sorcerer extends Hero {
 		setAgility(getAgility() + getAgility() * (0.05 + 0.05));
 		setDexterity(getDexterity() + getDexterity() * (0.05 + 0.05));
 	}
-
+	public void image() {
+		String image = "                    ____\n" + 
+				"                  .'* *.'\n" + 
+				"               __/_*_*(_\n" + 
+				"              / _______ \\\n" + 
+				"             _\\_)/___\\(_/_\n" + 
+				"            / _((\\- -/))_ \\\n" + 
+				"            \\ \\())(-)(()/ /\n" + 
+				"             ' \\(((()))/ '\n" + 
+				"            / ' \\)).))/ ' \\\n" + 
+				"           / _ \\ - | - /_  \\\n" + 
+				"          (   ( .;''';. .'  )\n" + 
+				"          _\\\"__ /    )\\ __\"/_\n" + 
+				"            \\/  \\   ' /  \\/\n" + 
+				"             .'  '...' ' )\n" + 
+				"              / /  |  \\ \\\n" + 
+				"             / .   .   . \\\n" + 
+				"            /   .     .   \\\n" + 
+				"           /   /   |   \\   \\\n" + 
+				"         .'   /    b    '.  '.\n" + 
+				"     _.-'    /     Bb     '-. '-._\n" + 
+				" _.-'       |      BBb       '-.  '-.\n" + 
+				"(________mrf\\____.dBBBb.________)____)\n";
+		System.out.println(color + image + RESET);
+	}
 }
