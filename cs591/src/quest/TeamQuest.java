@@ -1,31 +1,47 @@
 package quest;
 
 public class TeamQuest extends Team {
-	int totalFights = 0;
+	int totalFightsLost = 0;
 	int totalFightsWon = 0;
-	
-	
+
 	public TeamQuest(int id) {
 		super(id);
 		// TODO Auto-generated constructor stub
 	}
-	
 
-	public int getTotalFights() {
-		return totalFights;
+	public int getFightsLost() {
+		return totalFightsLost;
 	}
 
-	public void setTotalFights(int totalFights) {
-		this.totalFights = totalFights;
+	public void addFightsLost() {
+		this.totalFightsLost++;
 	}
-	
-	public int getTotalFightsWon() {
+
+	public int getFightsWon() {
 		return totalFightsWon;
 	}
 
-	public void totalFightsWon(int totalFightsWon) {
-		this.totalFightsWon = totalFightsWon;
+	public void addFightsWon() {
+		this.totalFightsWon++;
 	}
 
-
+	/*
+	 * Return false if at least one player in this Team is less than given level.
+	 */
+	public boolean allTeamReachedLevel(int level) {
+		for (Player player : this.getTeam()) {
+			if (((Hero) player.getHero()).level < level) {
+				return false;
+			}
+		}
+		return true;
+	}
+	
+	public void resetTeam() {
+		for (Player player : this.getTeam()) {
+			SetupQuestHelper.chooseQuestHero(player);
+		}
+		setCurrentRow(0);
+		setCurrentCol(0);
+	}
 }

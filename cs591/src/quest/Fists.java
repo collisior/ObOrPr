@@ -2,8 +2,8 @@ package quest;
 
 public class Fists extends Ammunition {
 
-	public Fists(String name, double cost, int required_level) {
-		super(name, cost, required_level);
+	public Fists() {
+		super("Fists", 0, 0);
 		// TODO Auto-generated constructor stub
 	}
 	
@@ -27,6 +27,22 @@ public class Fists extends Ammunition {
 	protected void applyExtraDamage(Monster monster) {
 		// TODO Auto-generated method stub
 		
+	}
+
+	@Override
+	protected String image() {
+		String image = 
+				"                        _    ,-,    _\n" + 
+				"                 ,--, /: :\\/': :`\\/: :\\\n" + 
+				"                |`;  ' `,'   `.;    `: |\n" + 
+				"                |    |     |  '  |     |.\n" + 
+				"                | :  |     | pb  |     ||\n" + 
+				"                | :. |  :  |  :  |  :  | \\\n" + 
+				"                 \\__/: :.. : :.. | :.. |  )\n" + 
+				"                      `---',\\___/,\\___/ /'\n" + 
+				"                           `==._ .. . /'\n" + 
+				"                                `-::-'\n\n";
+		return image;
 	}
 
 }

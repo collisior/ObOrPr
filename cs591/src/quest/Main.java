@@ -1,11 +1,11 @@
 package quest;
 
-public class Main {
+public class Main implements Vizualization {
 		
 	public static void main(String[] args) {
 		
 		CSVFilesHandler.setData();
-		System.out.println("\nWelcome to the game!\n");
+		System.out.println(WELCOME);
 
 		Quest game = new Quest();
 		game.startGame();

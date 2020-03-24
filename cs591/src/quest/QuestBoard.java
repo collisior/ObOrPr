@@ -5,7 +5,9 @@ public class QuestBoard extends Board implements Color {
 	 * Constructor to initialize Quest board (dimensions retrieved from user)
 	 */
 	QuestBoard() {
+		
 		super();
+		System.out.println("QuestBoard");
 		spreadCells();
 	}
 
@@ -79,6 +81,7 @@ public class QuestBoard extends Board implements Color {
 	}
 
 	private void spreadCells() {
+		System.out.println("QuestBoard2");
 		for (int r = 0; r < rows; r++) {
 			for (int c = 0; c < cols; c++) {
 				board[r][c].clearCell();
@@ -90,7 +93,7 @@ public class QuestBoard extends Board implements Color {
 			board[0][0].placePiece(new SimplePiece(' '));
 		}
 
-		if (Quest.gameMode == 0) {
+		if (Quest.gameMode == 0) { // with finish on right-bottom corner
 			board[rows - 1][cols - 1].clearCell();
 			board[rows - 1][cols - 1].placePiece(new SimplePiece('F'));
 		}

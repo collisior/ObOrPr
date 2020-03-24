@@ -14,7 +14,7 @@ public class Team implements Color {
 	private int turnIndex = 0; //this team's player turn 
 	private char figure; // e.g. can be used in TicTacToe, Checkers
 	private Piece piece;
-	String color = RED;
+	String color = RED; //default green color
 	private int current_row, current_col;
 	/*
 	 * Constructor to initialize team.

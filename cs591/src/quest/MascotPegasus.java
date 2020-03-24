@@ -19,7 +19,7 @@ public class MascotPegasus extends QuestMascot {
 	}
 	
 	@Override
-	public void image() {
+	public String image() {
 		String image = 
 				"\n" + 
 				"                        ,\n" + 
@@ -45,8 +45,7 @@ public class MascotPegasus extends QuestMascot {
 				"                       \\/_(             //_/\n" + 
 				"                       /__/            //__(\n" + 
 				"";
-		System.out.println(WHITE + image + RESET);
+		return (WHITE + image + RESET);
 	}
-	
 
 }

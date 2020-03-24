@@ -12,11 +12,18 @@ public class PersonalStorage implements Color {
 	}
 
 	public Ammunition getRandomAmmunition(Hero hero) {
-		int randomIndex = 0;
-		Ammunition item = get(randomIndex);
+		int randomIndex = 0, tries = 100;
+		Ammunition item = null;
 		boolean choiceAccepted = false;
 		do {
-			randomIndex = Quest.random.nextInt(storage.size() - 1);
+			if (tries == 0) {
+				choiceAccepted = true; item = null; break;
+			}
+			if (storage.size() > 1) {
+				randomIndex = Quest.random.nextInt(storage.size() - 1);
+			} else {
+				randomIndex = 0; 
+			}
 			if (item instanceof Spell) {
 				if (((Spell) item).canUse(hero)) {
 					choiceAccepted = true;
@@ -28,7 +35,7 @@ public class PersonalStorage implements Color {
 				choiceAccepted = true;
 				break;
 			}
-
+			tries--;
 		} while (!choiceAccepted);
 
 		return item;
@@ -50,7 +57,8 @@ public class PersonalStorage implements Color {
 					choiceAccepted = true;
 					break;
 				} else {
-					System.out.println("Not enough Mana to use this Spell! Try another ammunition.");
+					System.out.println("Not enough Mana to use this Spell!");
+					return item; // null
 				}
 			} else { // Weapon, Armor, Potion
 				choiceAccepted = true;

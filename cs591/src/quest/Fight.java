@@ -12,8 +12,8 @@ public class Fight implements Color, Vizualization {
 
 	public static void fight(Team team) {
 		aliveMonsters = SetupQuestHelper.generateMonsters(team);
-		Monster m1 = new Dragon("Natsunomeryu", 1, 100, 200, 10);
-		aliveMonsters.set(0, m1);
+//		Monster m1 = new Dragon("Natsunomeryu", 1, 100, 200, 10);
+//		aliveMonsters.set(0, m1);
 		GenericMethods.shuffle(aliveMonsters);
 		boolean fightStop = false;
 		while (!fightStop) {
@@ -21,8 +21,9 @@ public class Fight implements Color, Vizualization {
 			if (fightContinues(team)) {
 				Hero hero = nextAliveHero(team);
 				Monster monster = nextAliveMonster();
+				System.out.println(GREEN + "\nHero "+ hero +" VERSUS Monster "+ monster+ RESET+"\n");
 				if (hero.isAlive() && monster.isAlive()) {
-					System.out.println(team.getCurrentTeamPlayer() +", it's your turn to attack " + monster+".");
+					System.out.println(team.color+team.getCurrentTeamPlayer()+RESET +", it's your turn to attack " + monster+".");
 					round(hero, monster);
 					hero.endOfRound();
 				}
@@ -41,6 +42,7 @@ public class Fight implements Color, Vizualization {
 	 */
 	private static void exitFight(Team team) {
 		// if monsters win, half of money are taken away from each player
+		System.out.println("\n\n\n>>>>>>>>>>>>> totalTeamHpValue(team)" + totalTeamHpValue(team));
 		if (totalTeamHpValue(team) <= 0) {
 			for (Player player : team.getTeam()) {
 				Hero hero = (Hero) player.getHero();
@@ -62,9 +64,11 @@ public class Fight implements Color, Vizualization {
 	 * 
 	 */
 	private static void round(Hero hero, Monster monster) {
-		// TODO: Regular attack?
+		System.out.println(hero.image());
 		heroAttacks(hero, monster);
-
+		System.out.println(GREEN + "Monster's turn to attack ...\n\n" + RESET);
+		System.out.println(monster.image());
+		countdown(2);
 		if (monster.isAlive()) {
 			monsterAttacks(hero, monster);
 		} else {
@@ -72,20 +76,21 @@ public class Fight implements Color, Vizualization {
 			deadMonsters.add((Monster) monster);
 			aliveMonsters.remove(monster);
 			if (!aliveMonsters.isEmpty()) {
-				System.out.println(MONSTER + "\n" + DEFEATED);
+				System.out.println( MONSTER + "\n" + DEFEATED);
 			}
 		}
-		hero.setDodgedAttack(false);
-		monster.setDodgedAttack(false);
+		hero.setHasDodgedAttack(false);
+		monster.setHasDodgedAttack(false);
 	}
 
 	public static void heroAttacks(Hero hero, Monster monster) {
 		hero.chooseCurrentAmmunition();
-
+		System.out.println("Your attack: "+hero.getCurrentAmmunition()+"\n"+hero.getCurrentAmmunition().image());
 		double damage = hero.damageCalculation(monster);
 
 		if (monster.dodgeAttack()) {
 			// monster escapes
+			System.out.println(GREEN + "Oh no... Monster dodged your attack!\n\n" + RESET);
 		} else {
 			monster.applyDamage(damage);
 		}
@@ -98,9 +103,13 @@ public class Fight implements Color, Vizualization {
 
 		if (hero.dodgeAttack()) {
 			// hero escapes
+			System.out.println(GREEN + "Lucky son of a witch!!! You just dodged monster's attack!" + RESET);
 		} else {
 			double damage = monster.damageCalculation(hero);
 			hero.applyDamage(damage);
+			System.out.println(PUNCH);
+			System.out.println(GREEN + "OUCHH...Monster attacked! and you got hurt...\n" + RESET);
+
 		}
 	}
 
@@ -119,8 +128,10 @@ public class Fight implements Color, Vizualization {
 
 	private static void showWinner(Team team) {
 		if ((totalTeamHpValue(team) > 0) && (totalMonstersHpValue() <= 0)) {
+			((TeamQuest) team).addFightsWon();
 			System.out.println("Team wins the fight!");
 		} else {
+			((TeamQuest) team).addFightsLost();
 			System.out.println("Monsters wins the fight!");
 		}
 	}
@@ -202,6 +213,25 @@ public class Fight implements Color, Vizualization {
 		}, 0, 1000);
 		try {
 			Thread.sleep(seconds * 1000);
+		} catch (InterruptedException ie) {
+			Thread.currentThread().interrupt();
+		}
+		return;
+	}
+	public static void countdown(int seconds) {
+		Timer timer = new Timer();
+		timer.scheduleAtFixedRate(new TimerTask() {
+			int i = seconds;
+
+			public void run() {
+				i--;
+				System.out.print("");
+				if (i < 0)
+					timer.cancel();
+			}
+		}, 0, 1000);
+		try {
+			Thread.sleep(seconds * 750);
 		} catch (InterruptedException ie) {
 			Thread.currentThread().interrupt();
 		}

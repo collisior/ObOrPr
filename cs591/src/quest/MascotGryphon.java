@@ -17,7 +17,7 @@ public class MascotGryphon extends QuestMascot {
 		return damage + damage * (getPower() / 100);
 	}
 	
-	public void image() {
+	public String image() {
 		String image = 
 				"        _____,    _..-=-=-=-=-====--,\n" + 
 				"     _.'a   /  .-',___,..=--=--==-'`\n" + 
@@ -33,7 +33,7 @@ public class MascotGryphon extends QuestMascot {
 				"         / /'          \\ ;-. \\\n" + 
 				"jgs   __/ /           __) \\ ) `|\n" + 
 				"    ((='--;)         (,___/(,_/";
-		System.out.println(YELLOW + image + RESET);
+		return (YELLOW + image + RESET);
 	}
 	
 }

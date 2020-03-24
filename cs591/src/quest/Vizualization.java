@@ -126,6 +126,15 @@ public interface Vizualization {
 			"(_______)(_______/(_______/(_______/(_______)|/     \\|(_______/\n" + 
 			"                                                               ";
 	
+	public static final String FINISH = 
+			" _______ _________ _       _________ _______           _ \n" + 
+			"(  ____ \\\\__   __/( (    /|\\__   __/(  ____ \\|\\     /|( )\n" + 
+			"| (    \\/   ) (   |  \\  ( |   ) (   | (    \\/| )   ( || |\n" + 
+			"| (__       | |   |   \\ | |   | |   | (_____ | (___) || |\n" + 
+			"|  __)      | |   | (\\ \\) |   | |   (_____  )|  ___  || |\n" + 
+			"| (         | |   | | \\   |   | |         ) || (   ) |(_)\n" + 
+			"| )      ___) (___| )  \\  |___) (___/\\____) || )   ( | _ \n" + 
+			"|/       \\_______/|/    )_)\\_______/\\_______)|/     \\|(_)";
 	public static final String FIGHT = 
 			" _______ _________ _______          _________   _   \n" + 
 			"(  ____ \\\\__   __/(  ____ \\|\\     /|\\__   __/  ( )  \n" + 
@@ -198,6 +207,16 @@ public interface Vizualization {
 			"| )   ( || (___) || )  \\  |/\\____) |   | |   | (____/\\| ) \\ \\__/\\____) |\n" + 
 			"|/     \\|(_______)|/    )_)\\_______)   )_(   (_______/|/   \\__/\\_______)\n" + 
 			"                                                                        ";
+	
+	public static final String VS = 
+			" /$$    /$$  /$$$$$$ \n" + 
+			"| $$   | $$ /$$__  $$\n" + 
+			"| $$   | $$| $$  \\__/\n" + 
+			"|  $$ / $$/|  $$$$$$ \n" + 
+			" \\  $$ $$/  \\____  $$\n" + 
+			"  \\  $$$/   /$$  \\ $$\n" + 
+			"   \\  $/   |  $$$$$$/\n" + 
+			"    \\_/     \\______/ \n";
 	public static final String DEFEATED = 
 			" ______   _______  _______  _______  _______ _________ _______  ______  \n" + 
 			"(  __  \\ (  ____ \\(  ____ \\(  ____ \\(  ___  )\\__   __/(  ____ \\(  __  \\ \n" + 
@@ -208,4 +227,61 @@ public interface Vizualization {
 			"| (__/  )| (____/\\| )      | (____/\\| )   ( |   | |   | (____/\\| (__/  )\n" + 
 			"(______/ (_______/|/       (_______/|/     \\|   )_(   (_______/(______/ \n" + 
 			"                                                                        ";
+	
+	
+	public static final String PUNCH = 
+			"\n" + 
+			"                __________                  __,___/  \",\",\n" + 
+			"         ___.--\"          \"\\'.         ____/  l   \\    \",'-,\n" + 
+			"  ------f\"               // \\\\\\        \\  (l\\ \\    \\     \\ \\\",\n" + 
+			"        |                    |||       /   u       |      \\ \\ \\\n" + 
+			"        |                    |||     _ )          /       | |  \\\n" + 
+			"    ----L_-XXX-.             .|'    / U          <        | |  |\n" + 
+			"                \"\\   -<_____///     \\           6 )       | |  |\n" + 
+			"                  \\___)     -\"       '.       -.<\"       / /   |\n" + 
+			"                                      |'.___  |       _._.\"   /\n" + 
+			"                                      |     ./     _.\".\"   _.\"\n" + 
+			"                                     /      |\"----\"     _.\"\n" + 
+			"                                  jjs       \\\n" + 
+			"\n" + 
+			"";
+	public static final String FINGER = 
+			"           ___________    ____\n" + 
+			"    ______/   \\__//   \\__/____\\\n" + 
+			"  _/   \\_/  :           //____\\\\\n" + 
+			" /|      :  :  ..      /        \\\n" + 
+			"| |     ::     ::      \\        /\n" + 
+			"| |     :|     ||     \\ \\______/\n" + 
+			"| |     ||     ||      |\\  /  |\n" + 
+			" \\|     ||     ||      |   / | \\\n" + 
+			"  |     ||     ||      |  / /_\\ \\\n" + 
+			"  | ___ || ___ ||      | /  /    \\\n" + 
+			"   \\_-_/  \\_-_/ | ____ |/__/      \\\n" + 
+			"                _\\_--_/    \\      /\n" + 
+			"               /____             /\n" + 
+			"              /     \\           /\n" + 
+			"              \\______\\_________/";
+	
+	public static final String GREEN1 = "\u001B[32m";
+	public static final String CYAN1 = "\u001B[36m";
+	public static final String PURPLE1 = "\u001B[35m";
+	public static final String RESET1 = "\u001B[0m";
+	public static final String BOARD_CELLS_INFO = 
+			"Quest Board Cell Inormation: \n\n" 
+			+ "Non-accessible cell:         Magic Market Cell:          Monster Cell: \n"  
+			+GREEN1+"    \\\\\\\\\\\\"+RESET1+CYAN1+"                       /MM\\  "+RESET1+PURPLE1+"                    ******\n" 
+			+GREEN1+"    //////         "+RESET1+CYAN1+"             /''''\\   "+RESET1+PURPLE1+"                  ******\n "
+			+GREEN1+"   \\\\\\\\\\\\    "+RESET1+CYAN1+"                  L◻◻◻◻⅃   "+RESET1+PURPLE1+"                  ******\n\n" + RESET1;
+	
+			
+	public static void main(String[] args) {
+		String s = 
+				"Quest Board Cell Details: \n\n" 
+				+ "Non-accessible cell:         Magic Market Cell:          Monster Cell: \n"  
+				+GREEN1+"    \\\\\\\\\\\\"+RESET1+CYAN1+"                       /MM\\  "+RESET1+PURPLE1+"                    ******\n" 
+				+GREEN1+"    //////         "+RESET1+CYAN1+"             /''''\\   "+RESET1+PURPLE1+"                  ******\n "
+				+GREEN1+"   \\\\\\\\\\\\    "+RESET1+CYAN1+"                  L◻◻◻◻⅃   "+RESET1+PURPLE1+"                  ******" + RESET1;
+		System.out.println(s);		
+	}
+	
 }

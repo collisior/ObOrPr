@@ -61,4 +61,23 @@ public class Potion extends Ammunition {
 	@Override
 	protected void applyExtraDamage(Monster monster) {}
 
+	@Override
+	protected String image() {
+		String image = 
+				"      _____\n" + 
+				"     `.___,'\n" + 
+				"      (___)\n" + 
+				"      <   >\n" + 
+				"       ) (\n" + 
+				"      /`-.\\\n" + 
+				"     /     \\\n" + 
+				"    / _    _\\\n" + 
+				"   :,' `-.' `:\n" + 
+				"   |         |\n" + 
+				"   :         ;\n" + 
+				"    \\       /\n" + 
+				"     `.___.'   \n";
+		return image;
+	}
+
 }

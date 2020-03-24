@@ -1,9 +1,9 @@
 package quest;
 
-public abstract class Ammunition {
+public abstract class Ammunition implements Color {
 	String name = null;
 	double cost = 0; 
-	int required_level = 0;
+	int required_level = 0;	
 	
 	public Ammunition(String name, double cost, int required_level) {
 		this.name = name;
@@ -22,4 +22,6 @@ public abstract class Ammunition {
 	protected abstract void setDamage(double damage);
 		
 	protected abstract void applyExtraDamage(Monster monster);
+
+	protected abstract String image();
 }

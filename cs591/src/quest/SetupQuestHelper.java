@@ -2,44 +2,53 @@ package quest;
 
 import java.util.ArrayList;
 
-public class SetupQuestHelper implements FilesInfoInterface {
+public class SetupQuestHelper implements FilesInfoInterface, Color {
 
 	public static void setupTeam(Team team) {
-//		Team t = new Team(0);
-//		System.out.println("How many players will be playing?");
-//		int numPlayers = InputHandler.getInteger(1, 3);
-//		for (int i = 0; i < numPlayers; i++) {
-//			Player player = addPlayer();
-//			System.out.println("\n" + player + ", choose your hero character: ");
-//			CSVReader.displayAllData(CSVReader.heroesFilenames);
-//			int index = InputHandler.getInteger(0, CSVReader.heroes.size() - 1);
-////			player.setHero(CSVReader.retrieveHero(index));
-//			System.out.println("\n" + player + " is " + player.getHero());
-//			t.addPlayer(player);
-//		}
-//		addTeam(t);
 		for (Player player : team.getTeam()) {
 
 			Hero hero = (Hero) chooseQuestHero(player);
 			player.setHero(hero);
 			player.setTeamId(team.getId());
-			System.out.println(player + " Hero: " + player.getHero());
+			System.out.println(team.color + player + " your Hero: " + player.getHero() + RESET);
 		}
 	}
 
-	private static QuestCharacter chooseQuestHero(Player player) {
-		CSVFilesHandler.displayMultipleFiles(heroesFilenames);
-		System.out.println("\n" + player
-				+ ", choose Quest character by entering Hero type (W - warrior, P - paladin, S - sorcerer) "
-				+ "and index # of specified hero. For example, to choose Gaerdal_Ironhand type 'W1'.");
-		boolean inputIsValid = false;
+	static QuestCharacter chooseQuestHero(Player player) {
+		char[] clist = null;
+		if (player.getHeroChosen() != null) {
+			System.out.println("\n" + player + ": do you want to choose new Hero? "
+					+ "\n (if no, your Hero from previous quest will reset.");
+			if (InputHandler.YesOrNo()) {
+				clist = null;
+			} else {
+				clist = player.getHeroChosen();
+			}
+		}
+		if (clist == null) {
+			CSVFilesHandler.displayMultipleFiles(heroesFilenames);
+			System.out.println("\n" + GREEN + player + RESET
+					+ ", choose Quest character by entering Hero type (W - warrior, P - paladin, S - sorcerer) \n"
+					+ "and index # of specified hero. For example, to choose Gaerdal_Ironhand (Warrior, index = 1) type 'W1'.");
+			clist = chooseNewHero(player);
+		}
+
+		String filename = getHeroFilename(clist[0]);
+		int num = Integer.parseInt("" + clist[1]);
+		String[] heroData = CSVFilesHandler.retrieveDataFromFileByIndex(filename, num);
+		player.setHeroChosen(clist);
+		return produceHero(heroData, clist[0]);
+	}
+
+	static char[] chooseNewHero(Player player) {
+		char[] clist = null;
 		int num = 0;
-		String[] heroData = null;
+		boolean inputIsValid = false;
 		char heroType = 0;
 		while (inputIsValid == false) {
 			String input = InputHandler.getString();
 			input = input.replace(" ", "");
-			char[] clist = input.toCharArray();
+			clist = input.toCharArray();
 			heroType = clist[0];
 			if (input.length() == 2) {
 				if (Character.isLetter(heroType) && (!getHeroFilename(heroType).isEmpty())) {
@@ -49,7 +58,7 @@ public class SetupQuestHelper implements FilesInfoInterface {
 						int max = CSVFilesHandler.map.get(filename);
 						num = Integer.parseInt("" + clist[1]);
 						if ((num >= 1) && (num <= max)) {
-							heroData = CSVFilesHandler.retrieveDataFromFileByIndex(filename, num);
+							player.setHeroChosen(clist);
 							inputIsValid = true;
 						} else {
 							System.out.println("Invalid input. Number is out of range.");
@@ -61,41 +70,17 @@ public class SetupQuestHelper implements FilesInfoInterface {
 				}
 			}
 		}
-		return produceHero(heroData, heroType);
+		return clist;
 	}
 
 	static QuestMascot chooseMascot(Hero hero) {
-		System.out.println("\nCongratulations! You receive mascot that will be protect you and fight by your side."
-				+ "\nYou can pick mascot here (Press 'R' to get random mascot).");
-		boolean choiceAccepted = false;
+		System.out.println("\nCongratulations! You receive mascot that will be protect you and fight by your side.");
 		String[] mascotData = null;
 		String filename = "csv/Mascots.csv";
-		do {
-			String input = InputHandler.getString();
-			input = input.replace(" ", "");
-			char[] clist = input.toCharArray();
-			char mascotType = clist[0];
-			if ((mascotType == 'R') || (mascotType == 'r')) {
-				int randomIndex = Quest.random.nextInt(CSVFilesHandler.map.get(filename) - 1);
-				mascotData = CSVFilesHandler.retrieveDataFromFileByIndex(filename, randomIndex);
-			} else {
-				try {
-					int num = Integer.parseInt(input);
-					int max = CSVFilesHandler.map.get("csv/Mascots.csv");
-					if ((num >= 1) && (num <= max)) {
-						mascotData = CSVFilesHandler.retrieveDataFromFileByIndex(filename, num);
-						choiceAccepted = true;
-					} else {
-						System.out.println("Invalid input. Number is out of range.");
-					}
-				} catch (NumberFormatException e) {
-					System.out.println("Invalid input, must be 'R' letter or number in range. Try again. ");
-					continue;
-				} catch (NullPointerException e) {
-					continue;
-				}
-			}
-		} while (!choiceAccepted);
+		CSVFilesHandler.displayMultipleFiles(mascotsFilenames);
+		int max = CSVFilesHandler.map.get(filename);
+		int index = InputHandler.getInteger(1, max);
+		mascotData = CSVFilesHandler.retrieveDataFromFileByIndex(filename, index);
 		return produceMascot(mascotData);
 	}
 
@@ -135,7 +120,7 @@ public class SetupQuestHelper implements FilesInfoInterface {
 		if (mascotData[0].equals("Pegasus")) {
 			mascot = new MascotPegasus(mascotData[0], mascotDataInt[0], mascotDataInt[1], mascotDataInt[2]);
 		}
-		return null;
+		return mascot;
 	}
 
 	private static String getHeroFilename(char c) {

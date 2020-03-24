@@ -126,12 +126,11 @@ public class InputHandler {
 	 */
 	@SuppressWarnings("resource")
 	public static int[] getTwoIntegers() {
-
 		int[] nn = new int[] { -1, -1 };
 		boolean playerInputIsValid = false;
-		Scanner scanner = new Scanner(System.in).useDelimiter("[,\\s+]");
+		
 		while (playerInputIsValid == false) {
-
+			Scanner scanner = new Scanner(System.in).useDelimiter("[,\\s+]");
 			System.out.print("Enter two integers (separated by comma or whitespace): ");
 			try {
 				nn[0] = scanner.nextInt();
@@ -142,7 +141,6 @@ public class InputHandler {
 				System.out.println("Invalid input. Try again. ");
 			}
 		}
-		scanner.close();
 		return nn;
 	}
 

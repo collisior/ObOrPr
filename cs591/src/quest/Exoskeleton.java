@@ -7,7 +7,7 @@ public class Exoskeleton extends Monster {
 		// TODO Auto-generated constructor stub
 	}
 	
-	public void image() {
+	public String image() {
 		String image = 
 				"                              _.--\"\"-._\n" + 
 				"  .                         .\"         \".\n" + 
@@ -47,7 +47,7 @@ public class Exoskeleton extends Monster {
 				"                                             |  \\\n" + 
 				"                                             |lllj\n" + 
 				"                                             ||||| \n";
-		System.out.println(color + image + RESET);
+		return (color + image + RESET);
 	}
 
 }

@@ -6,21 +6,22 @@ import java.util.Random;
 /*
  * Rules for the game (flow)
  */
-public class Quest extends Game implements Color {
-	protected static int gameMode = 0; // finish, nofinish
+public class Quest extends Game implements Color, Vizualization {
+	protected static int gameMode = 0; // finish, endless, reach level
 	static Random random = new Random();
 	static double chanceToMeetMonsters = 0.8;
+	static int levelMascot = 3; // set level number when Hero will receive his Mascot
+	static int levelEnd = 10; // level number to indicate winners (reach-level quest mode)
 	QuestBoard board;
-	protected Team currentTeam;
+	protected TeamQuest currentTeam;
 	String[] colors = { RED, GREEN, YELLOW, BLUE, PURPLE, CYAN, WHITE };
 	ArrayList<String> list = new ArrayList<String>();
 
 	final static int TEAM_CAPACITY = 3;
 
 	public void setupTeams() {
-		System.out.println("How many teams will be playing?");
+		System.out.println("\nHow many teams will be playing?");
 		int numTeams = InputHandler.getInteger(1, colors.length);
-
 		for (int i = 0; i < numTeams; i++) {
 			Team team = new TeamQuest(i);
 			setupOneTeamQuest(team);
@@ -35,23 +36,23 @@ public class Quest extends Game implements Color {
 		} else {
 			setGamersQueue(getTeams());
 		}
-
 	}
 
 	private Piece choosePieceFigure(Team team) {
 		System.out.println(team + ", choose playing figure for your team (type #): ");
-		char figure = '⬤';
+		char figure = '@';
 
 		String l1 = "";
 		String l2 = "";
 		for (int i = 0; i < list.size(); i++) {
-			l1 += "" + i + "   ";
+			l1 += "" + i + "  ";
 			l2 += "" + list.get(i) + figure + RESET + "  ";
 		}
 		System.out.println(l1 + "\n" + l2);
 		int index = InputHandler.getInteger(0, list.size());
 		Piece piece = new SimplePiece(figure);
 		piece.setColor(list.get(index));
+		team.color = list.get(index);
 		team.setPiece(piece);
 		list.remove(index);
 		return piece;
@@ -60,7 +61,7 @@ public class Quest extends Game implements Color {
 	public void setupOneTeamQuest(Team team) {
 		choosePieceFigure(team);
 		System.out.printf(
-				"How many players will be playing in team '%s'? \nMax number of players in one team is %d. \n",
+				"\nHow many players will be playing in team '%s'? \nMax number of players in one team is %d. \n",
 				team.getName(), TEAM_CAPACITY);
 		int numPlayers = InputHandler.getInteger(1, TEAM_CAPACITY);
 		for (int j = 0; j < numPlayers; j++) {
@@ -74,7 +75,6 @@ public class Quest extends Game implements Color {
 		} else {
 			board.putInRandomCell(team.getPiece());
 		}
-
 	}
 
 	public void startGame() {
@@ -82,35 +82,97 @@ public class Quest extends Game implements Color {
 			list.add(t);
 		}
 		chooseQuestMode();
-		board = new QuestBoard(4, 4);
+		board = new QuestBoard();
+//		board.displayBoard(this);
 		setupTeams();
 		boolean gameStop = false;
+		currentTeam = (TeamQuest) getNextInQueue(mapTeams);
 		board.displayBoard(this);
 		while (!gameStop) {
-			currentTeam = (Team) getNextInQueue(mapTeams);
-			System.out.println("\n\n\n Team turn: " + currentTeam + "\n\n");
 			teamMove(currentTeam);
-			if ((gameMode == 0) && (currentTeam.getCurrentRow() == board.rows - 1)
-					&& (currentTeam.getCurrentCol() == board.cols - 1)) {
-				gameStop = true;
-				System.out.println("\nWinners");
+			if (questEnd()) {
+				gameStop = questEndHandler();
 			}
+			currentTeam = (TeamQuest) getNextInQueue(mapTeams);
 		}
 	}
 
+	public void playAgain() {
+		chooseQuestMode();
+		board = new QuestBoard();
+		for (int teamId : getTeams()) {
+			Team team = getTeam(teamId);
+			((TeamQuest) team).resetTeam();
+			if (gameMode == 0) {
+				board.getBoard()[0][0].placePiece(team.getPiece());
+			} else {
+				board.putInRandomCell(team.getPiece());
+			}
+		}
+		boolean gameStop = false;
+		currentTeam = (TeamQuest) getNextInQueue(mapTeams);
+		board.displayBoard(this);
+		while (!gameStop) {
+			teamMove(currentTeam);
+			if (questEnd()) {
+				gameStop = questEndHandler();
+			}
+			currentTeam = (TeamQuest) getNextInQueue(mapTeams);
+		}
+	}
+
+	private boolean questEnd() {
+		if ((gameMode == 0) && (currentTeam.getCurrentRow() == board.rows - 1)
+				&& (currentTeam.getCurrentCol() == board.cols - 1)) {
+			return true;
+		} else if (gameMode == 1) {
+			// do nothing
+		} else if (gameMode == 2) {
+			if (currentTeam.allTeamReachedLevel(levelEnd)) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	private boolean questEndHandler() {
+		String yellowLine = YELLOW + "````````````````````````````````````````````" + RESET;
+
+		if (gameMode == 0) {
+			System.out.println(yellowLine + yellowLine + "\n \tCongratulations!!! \n\t" + currentTeam
+					+ " reached finish Cell! \n" + yellowLine + yellowLine);
+		} else if (gameMode == 2) {
+			System.out.println(yellowLine + yellowLine + "\n \tCongratulations!!! \n\t All member of " + currentTeam
+					+ " reached level 10! \n" + yellowLine + yellowLine);
+		}
+		System.out.println("\n[0] - exit!" + "\n[1] - exit to Welcome page. (Game history will be erased!)"
+				+ "\n[2] - play again with the same team setup (you may pick different Quest mode and change Heroes, but your Ammunition strorage will be saved).");
+		int answer = InputHandler.getInteger(0, 2);
+		if (answer == 0) {
+			quitGame();
+		} else if (answer == 1) {
+			System.out.println("\nYou decided to go to welcome page!\n");
+			Main.main(null);
+		} else if (answer == 2) {
+			playAgain();
+		}
+		return false;
+	}
 	private void chooseQuestMode() {
 		System.out.printf("Choose Quest mode:\n"
-				+ "'0' - Destination-based Quest. Your goal will be to reach right-bottom corner cell.\n"
-				+ "'1' - Endless Quest. Adventure game with no finish cell. An endless adventure...\n");
-		gameMode = InputHandler.getInteger(0, 1);
+				+ "'0' - Destination-based: Your goal will be to reach right-bottom corner cell.\n"
+				+ "'1' - Endless: An endless adventure...\n"
+				+ "'2' - Reach-level-10: Team wins if all its members reach level 10.\n");
+		gameMode = InputHandler.getInteger(0, 2);
+		System.out.println(BOARD_CELLS_INFO);
 	}
 
 	public void teamMove(Team team) {
 		char[] acceptedInputs = { 'W', 'w', 'A', 'a', 'S', 's', 'D', 'd', 'Q', 'q', 'I', 'i', 'M', 'm' };
-		System.out.println(team
-				+ ", enter your move:\n 'W' - up, 'A'- left, 'S' - down, 'D'-right, 'Q' - quit, 'I'-print info, 'M'- show map. \n");
 		boolean teamMoved = false;
 		while (!teamMoved) {
+			System.out.println(team
+					+ ", enter your move:\n 'W' - up, 'A'- left, 'S' - down, 'D'-right, 'Q' - quit, 'I'-print info, 'M'- show map. \n");
 			char input = Character.toUpperCase(InputHandler.getCharacter(acceptedInputs));
 			char cellType = 0;
 			switch (input) {
@@ -176,21 +238,20 @@ public class Quest extends Game implements Color {
 			}
 		} else if (cellType == 'q') { // quit game
 			quitGame();
-
 		} else if (cellType == 'm') {
 			board.displayBoard(this);
 		} else if (cellType == 'i') {
 			for (Player player : team.getTeam()) {
-				System.out.println(
-						player + ". Information about hero: " + player.getHero().color + player.getHero() + RESET);
+				System.out.println(player);
 				player.getHero().information();
-				System.out.println("\n");
+				System.out.println("");
 			}
-			String s = BACKGROUND_BLACK + "-----------TEAM OVERALL-------------\n" + "\n\tTotal Fights won: "
-					+ ((TeamQuest) team).getTotalFightsWon() + "\n\tTotal Fights lost:"
-					+ (((TeamQuest) team).getTotalFights() - ((TeamQuest) team).getTotalFightsWon())
-					+ "-------------------------------------\n" + RESET;
+			String s = "-----------TEAM OVERALL-------------\n" + "\tTotal Fights won: "
+					+ ((TeamQuest) team).getFightsWon() + "\n\tTotal Fights lost:" + ((TeamQuest) team).getFightsLost()
+					+ "\n-------------------------------------\n";
 			System.out.println(s);
+		} else {
+			board.displayBoard(this);
 		}
 	}
 
@@ -214,10 +275,7 @@ public class Quest extends Game implements Color {
 	private void startFight(Team team) {
 		Fight.fightCountdown();
 		Fight.fight(team);
-		System.out.println("team current row col : " + team.getCurrentRow() + ",  " + team.getCurrentCol());
 		board.removeMonstersFromCell(team.getCurrentRow(), team.getCurrentCol());
-		System.out.println(
-				"Fight ended : " + board.getBoard()[team.getCurrentRow()][team.getCurrentCol()].getAllPieces());
 		return;
 	}
 

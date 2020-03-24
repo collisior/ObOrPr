@@ -30,7 +30,23 @@ public class Weapon extends Ammunition {
 	@Override
 	protected void applyExtraDamage(Monster monster) {
 		// TODO Auto-generated method stub
-		
+	}
+	
+	@Override
+	protected String image() {
+		String image = 
+				" ,-.______________,=========,\n" + 
+				"[|  )_____________)#######((_\n" + 
+				" /===============.-.___,--\" _\\\n" + 
+				"\"-._,__,__[JW]____\\########/\n" + 
+				"          \\ (  )) )####O##(\n" + 
+				"           \\ \\___/,.#######\\\n" + 
+				"            `====\"  \\#######\\\n" + 
+				"                     \\#######\\\n" + 
+				"                      )##O####|\n" + 
+				"                      )####__,\"\n" + 
+				"                      `--\"\"\n";
+		return image;
 	}
 	
 }

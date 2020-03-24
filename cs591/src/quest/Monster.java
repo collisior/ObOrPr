@@ -3,6 +3,7 @@ package quest;
 public class Monster extends QuestCharacter {
 
 	private double damage, defense, dodgeChance;
+	private double damageReducer = 0.8;
 
 	Monster(String name, int level, double damage, double defense, double dodgeChance) {
 		super(name, 1);
@@ -29,11 +30,13 @@ public class Monster extends QuestCharacter {
 
 	@Override
 	public double getDodgeChance() {
-		return dodgeChance;
+		return dodgeChance * damageReducer;
 	}
 
 	public void setDodgeChance(double dodgeChance) {
-		this.dodgeChance = dodgeChance;
+		if(dodgeChance <= 100) {
+			this.dodgeChance = dodgeChance;
+		}
 	}
 
 	/*
@@ -45,6 +48,7 @@ public class Monster extends QuestCharacter {
 			Armor armor = (Armor) hero.getCurrentAmmunition();
 			if ((getDamage() - armor.getDamageReduction()) > 0) {
 				finalDamage = getDamage() - armor.getDamageReduction();
+				System.out.print("\n>>>>>>>>>>>> ARMOR " + finalDamage);
 			}
 		} else if ((dodgedAttack == false) && (hero.getCurrentAmmunition() instanceof Spell)) {
 			Spell spell = (Spell) hero.getCurrentAmmunition();
@@ -92,6 +96,12 @@ public class Monster extends QuestCharacter {
 	protected void information() {
 		// TODO Auto-generated method stub
 		
+	}
+
+	@Override
+	protected String image() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

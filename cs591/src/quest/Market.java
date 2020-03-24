@@ -13,7 +13,8 @@ public class Market implements FilesInfoInterface {
 	public static Ammunition chooseItem() {
 
 		System.out.println("Choose Ammunition type (A - Armor, W - Weapon, P - Potion, I - Ice Spell, etc.) "
-				+ "and index # of specified ammunition. \ne.g. to buy Platinum_Shield type 'A1'.");
+				+ "and index # of specified ammunition. \ne.g. to buy Platinum_Shield (Armor, index = 1) type 'A1'.");
+		System.out.println("Type '0' to exit Magic Market.");
 		boolean inputIsValid = false;
 		int num = 0;
 		String[] ammunitionData = null;
@@ -22,6 +23,10 @@ public class Market implements FilesInfoInterface {
 			String input = InputHandler.getString();
 			input = input.replace(" ", "");
 			char[] clist = input.toCharArray();
+			if(clist[0] == '0') {
+				inputIsValid = true;
+				return null;
+			}
 			ammunitionType = clist[0];
 			if (input.length() == 2) {
 				if (Character.isLetter(ammunitionType) && (!getMarketFilename(ammunitionType).isEmpty())) {
@@ -102,9 +107,13 @@ public class Market implements FilesInfoInterface {
 		double budget = hero.getMoney();
 		int max_level = hero.getLevel();
 		Ammunition item = chooseItem();
+		if (item == null) {
+			return;
+		}
 		if ((item.cost <= budget) && (item.required_level <= max_level)) {
 			hero.setMoney(budget - item.cost);
 			hero.getStorage().add(item);
+			System.out.println("\n"+item + " is in your storage!");
 		} else if ((item.cost > budget) && (item.required_level <= max_level)) {
 			System.out.println("You can't afford this Ammuntion: " + item.name);
 		} else if ((item.required_level > max_level)) {
@@ -123,7 +132,9 @@ public class Market implements FilesInfoInterface {
 		} else {
 			hero.getStorage().showStorage();
 			System.out.println("\nWhich item do you want to sell? Type index # of item to sell.");
+			System.out.println("\nType '" +hero.getStorage().size() + "' to exit.");
 			int index = InputHandler.getInteger(0, hero.getStorage().size() - 1);
+			if (index == hero.getStorage().size()) return;
 			Ammunition item = hero.getStorage().get(index);
 			hero.setMoney(hero.getMoney() + item.cost / 2);
 			hero.getStorage().remove(index);

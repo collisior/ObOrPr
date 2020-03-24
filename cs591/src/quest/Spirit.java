@@ -7,7 +7,7 @@ public class Spirit extends Monster {
 		// TODO Auto-generated constructor stub
 	}
 
-	public void image() {
+	public String image() {
 		String image =
 				"                                   ╓#²▀╙`\"≈,                                    \n" + 
 				"                                 █Γ         █          ╓Φ═⌐≈φ╖                  \n" + 
@@ -40,6 +40,6 @@ public class Spirit extends Monster {
 				"                                            █ █                                 \n" + 
 				"                                            ██▀                                 \n" + 
 				"                                            ▀    ";
-		System.out.println(color + image + RESET);
+		return (color + image + RESET);
 	}
 }

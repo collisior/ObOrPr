@@ -5,7 +5,7 @@ public abstract class QuestCharacter implements Color {
 	protected double hp;
 	protected int level;
 	protected boolean dodgedAttack = false;
-	protected String color = WHITE;
+	protected String color = GREEN;
 	
 	QuestCharacter(String name, int level) {
 		setName(name);
@@ -26,10 +26,15 @@ public abstract class QuestCharacter implements Color {
 	}
 
 	public void setHp(double hp) {
-		this.hp = hp;
+		if(hp < 0) {
+			this.hp = 0;
+		}
+		else {
+			this.hp = hp;
+		}
 	}
 
-	public void setHp() {
+	public void resetHp() {
 		this.hp = 100 * this.level;
 	}
 
@@ -45,7 +50,7 @@ public abstract class QuestCharacter implements Color {
 		return dodgedAttack;
 	}
 
-	public void setDodgedAttack(boolean dodgedAttack) {
+	public void setHasDodgedAttack(boolean dodgedAttack) {
 		this.dodgedAttack = dodgedAttack;
 	}
 
@@ -57,7 +62,7 @@ public abstract class QuestCharacter implements Color {
 	}
 
 	public String toString() {
-		return color + name + RESET;
+		return name ;
 	}
 
 	public abstract String displayDetails();
@@ -68,10 +73,10 @@ public abstract class QuestCharacter implements Color {
 	public boolean dodgeAttack() {
 		double chance = getDodgeChance();
 		if (Quest.random.nextInt(100) <= chance) {
-			setDodgedAttack(true);
+			setHasDodgedAttack(true);
 			return true;
 		}
-		setDodgedAttack(false);
+		setHasDodgedAttack(false);
 		return false;
 	}
 
@@ -81,7 +86,7 @@ public abstract class QuestCharacter implements Color {
 	 */
 	protected abstract double damageCalculation(QuestCharacter character);
 
-	protected void applyDamage(double damage) {		
+	protected void applyDamage(double damage) {	
 		setHp(getHp() - damage);
 	}
 
@@ -94,5 +99,6 @@ public abstract class QuestCharacter implements Color {
 	protected abstract void levelUp();
 
 	protected abstract void information();
+	protected abstract String image() ;
 
 }

@@ -7,7 +7,7 @@ public class Dragon extends Monster {
 		// TODO Auto-generated constructor stub
 	}
 	
-	public void image() {
+	public String image() {
 		String image = 
 				"             __                  __\n" + 
 				"            ( _)                ( _)\n" + 
@@ -36,6 +36,6 @@ public class Dragon extends Monster {
 				"               (/\\/\\)           /   /   //\n" + 
 				"                      _________/   /    /\n" + 
 				"                     \\____________/    (\n";
-		System.out.println(color + image + RESET);
+		return color + image + RESET;
 	}
 }

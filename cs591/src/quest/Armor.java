@@ -32,5 +32,19 @@ public class Armor extends Ammunition {
 		// TODO Auto-generated method stub
 		
 	}
+
+	@Override
+	protected String image() {
+		String image = 
+				"  |`-._/\\_.-`|\n" + 
+				"  |    ||    |\n" + 
+				"  |___o()o___|\n" + 
+				"  |__((<>))__|\n" + 
+				"  \\   o\\/o   /\n" + 
+				"   \\   ||   /\n" + 
+				"    \\  ||  /\n" + 
+				"     '.||.'\n";
+		return image;
+	}
 	
 }

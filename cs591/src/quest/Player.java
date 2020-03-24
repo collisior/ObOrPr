@@ -14,6 +14,8 @@ public class Player {
 	private int teamId;
 	private HumanInfo info;
 	private QuestCharacter hero;
+	private char[] heroChosen = null;
+
 
 	// Constructor to initialize this Player
 	public Player(int id) {
@@ -138,5 +140,13 @@ public class Player {
 
 	public void setHero(QuestCharacter hero) {
 		this.hero = hero;
+	}
+
+	public char[] getHeroChosen() {
+		return heroChosen;
+	}
+
+	public void setHeroChosen(char[] heroChosen) {
+		this.heroChosen = heroChosen;
 	}
 }

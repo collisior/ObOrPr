@@ -7,7 +7,7 @@ public abstract class Board {
 
 	protected Cell[][] board;
 	protected int rows, cols;
-	final static int MAX_BOARD_SIDE_DIMENSION = 1000;
+	final static int MAX_BOARD_SIDE_DIMENSION = 100;
 	/*
 	 * Constructor to initialize empty board (dimensions retrieved from user)
 	 */

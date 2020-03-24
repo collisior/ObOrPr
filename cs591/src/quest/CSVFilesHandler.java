@@ -9,7 +9,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class CSVFilesHandler implements FilesInfoInterface {
+public class CSVFilesHandler implements FilesInfoInterface, Color {
 
 	public static List<List<String>> heroes = new ArrayList<List<String>>(), monsters = new ArrayList<List<String>>(),
 			marketItems = new ArrayList<List<String>>(), mascots = new ArrayList<List<String>>();
@@ -65,8 +65,8 @@ public class CSVFilesHandler implements FilesInfoInterface {
 		int counter = 0;
 		String line = "", cvsSplitBy = ",";
 		String f = filename.substring(4, filename.length() - 4);
-		System.out.println("" + f);
-		
+		System.out.println(BACKGROUND_BLACK + GREEN + f + RESET + RESET);
+
 		try (BufferedReader br = new BufferedReader(new FileReader(filename))) {
 			while ((line = br.readLine()) != null) {
 				String[] data = line.split(cvsSplitBy);

@@ -50,7 +50,7 @@ public abstract class QuestMascot implements Color {
 		this.canDamage = canDamage;
 	}
 	
-	public abstract void image();
+	public abstract String image();
 
 	public double getLuck() {
 		return luck;

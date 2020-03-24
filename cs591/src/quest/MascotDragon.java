@@ -16,7 +16,7 @@ public class MascotDragon extends QuestMascot {
 	protected double damage(Hero hero, double damage) {
 		return damage + damage * (getPower() / 100);
 	}
-	public void image() {
+	public String image() {
 		String image = 
 				"                     ,\n" + 
 				"                    (\\\\__\n" + 
@@ -34,6 +34,6 @@ public class MascotDragon extends QuestMascot {
 				"     `-.,,-'``-/  /__=;`   /\n" + 
 				"              (    `\\  \\_.'\n" + 
 				"               `\"\"\"\"\"`s";
-		System.out.println(GREEN + image + RESET);
+		return (GREEN + image + RESET);
 	}
 }

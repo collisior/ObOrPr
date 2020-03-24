@@ -12,7 +12,7 @@ public class Warrior extends Hero {
 		setDexterity(getDexterity() + getDexterity() * 0.05);
 	}
 	
-	public void image() {
+	public String image() {
 		String image ="  ,   A           {}\n" + 
 				" / \\, | ,        .--.\n" + 
 				"|    =|= >      /.--.\\\n" + 
@@ -33,6 +33,6 @@ public class Warrior extends Hero {
 				"      |        |  ||  |\n" + 
 				"      |       _\\.:||:./_\n" + 
 				"      | jgs  /____/\\____\\";
-		System.out.println(color + image + RESET);
+		return (color + image + RESET);
 	}
 }
